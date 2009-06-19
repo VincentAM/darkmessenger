@@ -6,3 +6,5 @@ J:\dev\c_sharp\darkmessenger\darkmessenger\obj\Debug\darkmessenger.Properties.Re
 J:\dev\c_sharp\darkmessenger\darkmessenger\obj\Debug\darkmessenger.csproj.GenerateResource.Cache
 J:\dev\c_sharp\darkmessenger\darkmessenger\obj\Debug\darkmessenger.exe
 J:\dev\c_sharp\darkmessenger\darkmessenger\obj\Debug\darkmessenger.pdb
+D:\Dev\WorkSpace\C#\DarkMessenger\darkmessenger\darkmessenger\obj\Debug\darkmessenger.exe
+D:\Dev\WorkSpace\C#\DarkMessenger\darkmessenger\darkmessenger\obj\Debug\darkmessenger.pdb
