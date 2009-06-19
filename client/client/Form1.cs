@@ -11,8 +11,13 @@ using System.Threading;
 
 namespace client
 {
+    internal delegate void ChangeTextDelegateHandler(RichTextBox _rtb, string text);
+
     public partial class Form1 : Form
     {
+
+        private ChangeTextDelegateHandler ChangeTextDelegate;
+
         #region objects
 
         Socket s_listen;
@@ -34,6 +39,7 @@ namespace client
         public Form1()
         {
             InitializeComponent();
+            this.ChangeTextDelegate = new ChangeTextDelegateHandler(ChangeText);
         }
 
         private void init_listen()
@@ -125,6 +131,7 @@ namespace client
                 while (waitForNewClient)
                 {
                     cwrite("Attente d'une nouvelle connexion...");
+                    this.Invoke(ChangeTextDelegate, richTextBox1, "test message"); 
                     currentClient = s_listen.Accept();
                     listOfConnected.Add(currentClient);
                     cwrite("Nouveau client !");
@@ -162,6 +169,11 @@ namespace client
         private void cwrite(string _s)
         {
             Console.WriteLine(_s);
+        }
+
+        private void ChangeText(RichTextBox _rtb, string text)
+        {
+            _rtb.Text += text + '\n' ;
         }
     }
 }

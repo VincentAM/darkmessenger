@@ -6,3 +6,11 @@ J:\dev\c_sharp\reseau\client\client\obj\Release\client.Properties.Resources.reso
 J:\dev\c_sharp\reseau\client\client\obj\Release\client.csproj.GenerateResource.Cache
 J:\dev\c_sharp\reseau\client\client\obj\Release\client.exe
 J:\dev\c_sharp\reseau\client\client\obj\Release\client.pdb
+D:\Dev\WorkSpace\C#\client\client\obj\Release\client.exe
+D:\Dev\WorkSpace\C#\client\client\obj\Release\client.pdb
+D:\Dev\WorkSpace\C#\client\client\bin\Release\client.exe
+D:\Dev\WorkSpace\C#\client\client\bin\Release\client.pdb
+D:\Dev\WorkSpace\C#\client\client\obj\Release\ResolveAssemblyReference.cache
+D:\Dev\WorkSpace\C#\client\client\obj\Release\client.Form1.resources
+D:\Dev\WorkSpace\C#\client\client\obj\Release\client.Properties.Resources.resources
+D:\Dev\WorkSpace\C#\client\client\obj\Release\client.csproj.GenerateResource.Cache
