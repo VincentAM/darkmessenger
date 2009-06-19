@@ -15,8 +15,11 @@ namespace client
 
     public partial class Form1 : Form
     {
+        #region delegate
 
         private ChangeTextDelegateHandler ChangeTextDelegate;
+
+        #endregion
 
         #region objects
 
@@ -33,6 +36,8 @@ namespace client
         Thread waitClientThread;
         ArrayList listOfConnected;
         bool waitForNewClient;
+
+        Thread waitMessage;
 
         #endregion
 
@@ -59,17 +64,20 @@ namespace client
 
         private void button1_Click(object sender, EventArgs e)
         {
-            init_listen();
+            if (s_listen == null)
+            {
+                init_listen();
 
-            s_listen = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-            s_listen.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.ReuseAddress, 1);
+                s_listen = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+                s_listen.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.ReuseAddress, 1);
 
-            s_listen.Bind(new IPEndPoint(my_ip, my_port));
-            s_listen.Listen(10);
+                s_listen.Bind(new IPEndPoint(my_ip, my_port));
+                s_listen.Listen(10);
 
-            currentClient = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-            waitClientThread = new Thread(new ThreadStart(runNewClientThread));
-            waitClientThread.Start();
+                currentClient = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+                waitClientThread = new Thread(new ThreadStart(runNewClientThread));
+                waitClientThread.Start();
+            }
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -169,6 +177,5 @@ namespace client
         {
             richTextBox1.Text += _s + '\n';
         }
-
     }
 }
