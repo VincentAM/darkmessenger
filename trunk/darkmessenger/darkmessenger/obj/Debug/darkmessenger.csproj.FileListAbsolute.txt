@@ -1,0 +1,8 @@
+J:\dev\c_sharp\darkmessenger\darkmessenger\bin\Debug\darkmessenger.exe
+J:\dev\c_sharp\darkmessenger\darkmessenger\bin\Debug\darkmessenger.pdb
+J:\dev\c_sharp\darkmessenger\darkmessenger\obj\Debug\ResolveAssemblyReference.cache
+J:\dev\c_sharp\darkmessenger\darkmessenger\obj\Debug\darkmessenger.main.resources
+J:\dev\c_sharp\darkmessenger\darkmessenger\obj\Debug\darkmessenger.Properties.Resources.resources
+J:\dev\c_sharp\darkmessenger\darkmessenger\obj\Debug\darkmessenger.csproj.GenerateResource.Cache
+J:\dev\c_sharp\darkmessenger\darkmessenger\obj\Debug\darkmessenger.exe
+J:\dev\c_sharp\darkmessenger\darkmessenger\obj\Debug\darkmessenger.pdb
