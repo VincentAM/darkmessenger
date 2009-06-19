@@ -11,7 +11,7 @@ using System.Threading;
 
 namespace client
 {
-    internal delegate void ChangeTextDelegateHandler(RichTextBox _rtb, string text);
+    internal delegate void ChangeTextDelegateHandler(string text);
 
     public partial class Form1 : Form
     {
@@ -39,7 +39,7 @@ namespace client
         public Form1()
         {
             InitializeComponent();
-            this.ChangeTextDelegate = new ChangeTextDelegateHandler(ChangeText);
+            this.ChangeTextDelegate = new ChangeTextDelegateHandler(cwrite);
         }
 
         private void init_listen()
@@ -93,7 +93,7 @@ namespace client
 
                 s_listen = null;
                 currentClient = null;
-                cwrite("Listener coupé");
+                cwrite("Listener coupé.");
             }
         }
 
@@ -130,16 +130,15 @@ namespace client
             {
                 while (waitForNewClient)
                 {
-                    cwrite("Attente d'une nouvelle connexion...");
-                    this.Invoke(ChangeTextDelegate, richTextBox1, "test message"); 
+                    this.Invoke(ChangeTextDelegate, "Attente d'une nouvelle connexion..."); 
                     currentClient = s_listen.Accept();
                     listOfConnected.Add(currentClient);
-                    cwrite("Nouveau client !");
+                    this.Invoke(ChangeTextDelegate, "Nouveau client !"); 
                 }
             }
             catch(Exception ex)
             {
-                cwrite("Boucle d'attente coupée");
+                this.Invoke(ChangeTextDelegate, "Boucle d'attente coupée."); 
             }
         }
 
@@ -168,12 +167,8 @@ namespace client
 
         private void cwrite(string _s)
         {
-            Console.WriteLine(_s);
+            richTextBox1.Text += _s + '\n';
         }
 
-        private void ChangeText(RichTextBox _rtb, string text)
-        {
-            _rtb.Text += text + '\n' ;
-        }
     }
 }
