@@ -1,0 +1,5 @@
+J:\dev\c_sharp\reseau\reseau_tcp\server\server\server\obj\Debug\ResolveAssemblyReference.cache
+J:\dev\c_sharp\reseau\reseau_tcp\server\server\server\bin\Debug\server.exe
+J:\dev\c_sharp\reseau\reseau_tcp\server\server\server\bin\Debug\server.pdb
+J:\dev\c_sharp\reseau\reseau_tcp\server\server\server\obj\Debug\server.exe
+J:\dev\c_sharp\reseau\reseau_tcp\server\server\server\obj\Debug\server.pdb
