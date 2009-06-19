@@ -1,0 +1,8 @@
+J:\dev\c_sharp\reseau\client\client\bin\Release\client.exe
+J:\dev\c_sharp\reseau\client\client\bin\Release\client.pdb
+J:\dev\c_sharp\reseau\client\client\obj\Release\ResolveAssemblyReference.cache
+J:\dev\c_sharp\reseau\client\client\obj\Release\client.Form1.resources
+J:\dev\c_sharp\reseau\client\client\obj\Release\client.Properties.Resources.resources
+J:\dev\c_sharp\reseau\client\client\obj\Release\client.csproj.GenerateResource.Cache
+J:\dev\c_sharp\reseau\client\client\obj\Release\client.exe
+J:\dev\c_sharp\reseau\client\client\obj\Release\client.pdb
