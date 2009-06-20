@@ -37,7 +37,8 @@
             this.panel2 = new System.Windows.Forms.Panel();
             this.panel3 = new System.Windows.Forms.Panel();
             this.bt_start_listen = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
+            this.bt_stop_listen = new System.Windows.Forms.Button();
+            this.tb_port = new System.Windows.Forms.TextBox();
             this.panel2.SuspendLayout();
             this.panel3.SuspendLayout();
             this.SuspendLayout();
@@ -129,30 +130,40 @@
             // 
             // bt_start_listen
             // 
-            this.bt_start_listen.Location = new System.Drawing.Point(351, 39);
+            this.bt_start_listen.Location = new System.Drawing.Point(370, 39);
             this.bt_start_listen.Name = "bt_start_listen";
-            this.bt_start_listen.Size = new System.Drawing.Size(64, 23);
+            this.bt_start_listen.Size = new System.Drawing.Size(45, 23);
             this.bt_start_listen.TabIndex = 8;
             this.bt_start_listen.Text = "Start";
             this.bt_start_listen.UseVisualStyleBackColor = true;
             this.bt_start_listen.Click += new System.EventHandler(this.bt_start_listen_Click);
             // 
-            // button2
+            // bt_stop_listen
             // 
-            this.button2.Location = new System.Drawing.Point(351, 68);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(64, 23);
-            this.button2.TabIndex = 9;
-            this.button2.Text = "Stop";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
+            this.bt_stop_listen.Location = new System.Drawing.Point(306, 68);
+            this.bt_stop_listen.Name = "bt_stop_listen";
+            this.bt_stop_listen.Size = new System.Drawing.Size(109, 23);
+            this.bt_stop_listen.TabIndex = 9;
+            this.bt_stop_listen.Text = "Stop";
+            this.bt_stop_listen.UseVisualStyleBackColor = true;
+            this.bt_stop_listen.Click += new System.EventHandler(this.bt_stop_listen_Click);
+            // 
+            // tb_port
+            // 
+            this.tb_port.Location = new System.Drawing.Point(306, 40);
+            this.tb_port.Name = "tb_port";
+            this.tb_port.Size = new System.Drawing.Size(58, 20);
+            this.tb_port.TabIndex = 10;
+            this.tb_port.Text = "12608";
+            this.tb_port.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(427, 393);
-            this.Controls.Add(this.button2);
+            this.Controls.Add(this.tb_port);
+            this.Controls.Add(this.bt_stop_listen);
             this.Controls.Add(this.bt_start_listen);
             this.Controls.Add(this.panel3);
             this.Controls.Add(this.panel2);
@@ -182,7 +193,8 @@
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.Button bt_start_listen;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button bt_stop_listen;
+        private System.Windows.Forms.TextBox tb_port;
 
     }
 }
