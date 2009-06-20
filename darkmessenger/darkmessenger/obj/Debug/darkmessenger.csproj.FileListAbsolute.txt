@@ -8,3 +8,11 @@ J:\dev\c_sharp\darkmessenger\darkmessenger\obj\Debug\darkmessenger.exe
 J:\dev\c_sharp\darkmessenger\darkmessenger\obj\Debug\darkmessenger.pdb
 D:\Dev\WorkSpace\C#\DarkMessenger\darkmessenger\darkmessenger\obj\Debug\darkmessenger.exe
 D:\Dev\WorkSpace\C#\DarkMessenger\darkmessenger\darkmessenger\obj\Debug\darkmessenger.pdb
+D:\Dev\WorkSpace\C#\SVN_Google\darkmessenger\darkmessenger\obj\Debug\darkmessenger.exe
+D:\Dev\WorkSpace\C#\SVN_Google\darkmessenger\darkmessenger\obj\Debug\darkmessenger.pdb
+D:\Dev\WorkSpace\C#\SVN_Google\darkmessenger\darkmessenger\bin\Debug\darkmessenger.exe
+D:\Dev\WorkSpace\C#\SVN_Google\darkmessenger\darkmessenger\bin\Debug\darkmessenger.pdb
+D:\Dev\WorkSpace\C#\SVN_Google\darkmessenger\darkmessenger\obj\Debug\ResolveAssemblyReference.cache
+D:\Dev\WorkSpace\C#\SVN_Google\darkmessenger\darkmessenger\obj\Debug\darkmessenger.main.resources
+D:\Dev\WorkSpace\C#\SVN_Google\darkmessenger\darkmessenger\obj\Debug\darkmessenger.Properties.Resources.resources
+D:\Dev\WorkSpace\C#\SVN_Google\darkmessenger\darkmessenger\obj\Debug\darkmessenger.csproj.GenerateResource.Cache
