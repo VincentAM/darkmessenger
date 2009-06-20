@@ -86,7 +86,16 @@ namespace darkmessenger
         private void tb_message_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (e.KeyChar == 13)
-                SendMessage();
+            {
+                SendMessage(tb_message.Text);
+                tb_message.Text = "";
+            }
+        }
+
+        private void main_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            SendMessage(TrameClient.getDisconnectionTrame(pseudo));
+            tcp_client.Close();
         }
 
         #endregion
@@ -143,7 +152,11 @@ namespace darkmessenger
             }
             catch (IOException ex)
             {
-                this.Invoke(WriteMessageDelegate, "Server arrêté", Color.Red);
+                try
+                {
+                    this.Invoke(WriteMessageDelegate, "Server arrêté", Color.Red);
+                }
+                catch (InvalidOperationException exx){ }
             }
 
         }
@@ -166,6 +179,7 @@ namespace darkmessenger
             _main.tb_pseudo.Enabled = false;
             _main.tb_message.Enabled = true;
             _main.AddMessage("Connexion avec succes", Color.Green);
+            _main.SendMessage(TrameClient.getConnectionTrame(pseudo));
             _main.WaitMessage();
         }
 
@@ -183,15 +197,14 @@ namespace darkmessenger
 
         #region Envoi de message
 
-        public void SendMessage()
+        public void SendMessage(String _mess)
         {
-            if (tb_message.Text != "" && tcp_client!=null)
+            if (_mess != "" && tcp_client != null)
             {
                 Stream stm = tcp_client.GetStream();
-                byte[] ba = utf8.GetBytes(tb_message.Text);
+                byte[] ba = utf8.GetBytes(_mess);
                 stm.Write(ba, 0, ba.Length);
-                AddMessage(pseudo + " : " + tb_message.Text, Color.Blue);
-                tb_message.Text = "";
+                AddMessage(pseudo + " : " + _mess, Color.Blue);
             }
         }
 

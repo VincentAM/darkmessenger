@@ -174,6 +174,7 @@
             this.Controls.Add(this.panel1);
             this.Name = "main";
             this.Text = "DarkMessenger";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.main_FormClosing);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.panel2.ResumeLayout(false);
