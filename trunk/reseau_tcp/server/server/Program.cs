@@ -20,13 +20,12 @@ namespace server
                 /* Start Listeneting at the specified port */
                 myList.Start();
 
-                Console.WriteLine("The server is running at port "+port.ToString()+"...");
-                Console.WriteLine("The local End point is  :" +
-                                  myList.LocalEndpoint);
-                Console.WriteLine("Waiting for a connection.....");
+                Console.WriteLine("Le serveur tourne sur le port : "+port.ToString());
+                Console.WriteLine("Le bind est  :"+myList.LocalEndpoint);
+                Console.WriteLine("Attente ...");
 
                 Socket s = myList.AcceptSocket();
-                Console.WriteLine("Connection accepted from " + s.RemoteEndPoint);
+                Console.WriteLine("Connexion accpectée pour : " + s.RemoteEndPoint);
 
                 byte[] b;
                 int k;
@@ -42,7 +41,7 @@ namespace server
 
                     b = new byte[100];
                     k = s.Receive(b);
-                    Console.WriteLine("Recieved...");
+                    Console.WriteLine("Reception ...");
                     for (int i = 0; i < k; i++)
                         str += Convert.ToChar(b[i]);
 
@@ -55,7 +54,7 @@ namespace server
             }
             catch (Exception e)
             {
-                Console.WriteLine("Error..... " + e.StackTrace);
+                Console.WriteLine("Erreur ..." + e.StackTrace);
                 Console.Read();
             }
 
