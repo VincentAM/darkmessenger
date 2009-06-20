@@ -11,20 +11,35 @@ using System.Net;
 
 namespace darkmessenger_server
 {
+    #region delegate declaration
+
     delegate void WriteConsoleDelegateHandler(string text);
     delegate void ChangeStateServerHandler(bool isWaiting);
 
+    #endregion
+
     public partial class main : Form
     {
+        #region objects
+
+        #region thread objects
+
         Thread waitForNewConnection;
         Thread waitMessageFromClient;
+
+        #endregion
+
+        #region delegate objects
 
         private WriteConsoleDelegateHandler WriteConsoleDelegate;
         private ChangeStateServerHandler ChangeStateServer;
 
+        #endregion
+
         TcpListener serverListener;
         ArrayList listOfClient;
 
+        #endregion
 
         public main()
         {
@@ -33,25 +48,16 @@ namespace darkmessenger_server
             this.ChangeStateServer = new ChangeStateServerHandler(change_state_server);
         }
 
-        private void bt_start_listen_Click(object sender, EventArgs e)
-        {
-            listOfClient = new ArrayList();
-
-            waitForNewConnection = new Thread(new ThreadStart(runWaitForNewConnection));
-            waitForNewConnection.Start();
-        }
+        #region thread methods
 
         private void runWaitForNewConnection()
         {
             try
             {
                 IPAddress ipAd = Dns.Resolve(Dns.GetHostName()).AddressList[0];
-                int port = 12609;
+                int port = int.Parse(tb_port.Text);
+
                 serverListener = new TcpListener(ipAd, port);
-                //this.Invoke(WriteConsoleDelegate, "mon ip : " + ipAd.Address.ToString());
-
-                /* Start Listeneting at the specified port */
-
                 serverListener.Start();
 
                 this.Invoke(WriteConsoleDelegate, "Le server attend les connexions sur le port : " + port.ToString());
@@ -89,6 +95,10 @@ namespace darkmessenger_server
             }
         }
 
+        #endregion
+
+        #region delegate methods
+
         private void write_on_console(string _s)
         {
             rtb_console.Text += _s + "\n";
@@ -106,9 +116,23 @@ namespace darkmessenger_server
             }
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        #endregion
+
+        #region event interface
+
+        private void bt_stop_listen_Click(object sender, EventArgs e)
         {
             serverListener.Stop();
         }
+
+        private void bt_start_listen_Click(object sender, EventArgs e)
+        {
+            listOfClient = new ArrayList();
+
+            waitForNewConnection = new Thread(new ThreadStart(runWaitForNewConnection));
+            waitForNewConnection.Start();
+        }
+
+        #endregion
     }
 }
