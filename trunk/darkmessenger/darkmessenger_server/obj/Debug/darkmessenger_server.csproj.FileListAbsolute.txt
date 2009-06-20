@@ -1,0 +1,8 @@
+J:\dev\c_sharp\darkmessenger\darkmessenger_server\bin\Debug\darkmessenger_server.exe
+J:\dev\c_sharp\darkmessenger\darkmessenger_server\bin\Debug\darkmessenger_server.pdb
+J:\dev\c_sharp\darkmessenger\darkmessenger_server\obj\Debug\ResolveAssemblyReference.cache
+J:\dev\c_sharp\darkmessenger\darkmessenger_server\obj\Debug\darkmessenger_server.main.resources
+J:\dev\c_sharp\darkmessenger\darkmessenger_server\obj\Debug\darkmessenger_server.Properties.Resources.resources
+J:\dev\c_sharp\darkmessenger\darkmessenger_server\obj\Debug\darkmessenger_server.csproj.GenerateResource.Cache
+J:\dev\c_sharp\darkmessenger\darkmessenger_server\obj\Debug\darkmessenger_server.exe
+J:\dev\c_sharp\darkmessenger\darkmessenger_server\obj\Debug\darkmessenger_server.pdb

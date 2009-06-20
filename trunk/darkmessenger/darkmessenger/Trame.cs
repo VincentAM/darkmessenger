@@ -34,11 +34,11 @@ namespace darkmessenger
 
                     xdoc.LoadXml(data);
                     XmlNode racine = xdoc.GetElementsByTagName("trame")[0];
-                    this.id = racine.SelectSingleNode("id").FirstChild.Value.Trim(toTrim);
-                    this.name = racine.SelectSingleNode("name").FirstChild.Value.Trim(toTrim);
-                    this.from = racine.SelectSingleNode("from").FirstChild.Value.Trim(toTrim);
-                    this.to = racine.SelectSingleNode("to").FirstChild.Value.Trim(toTrim);
-                    this.action = racine.SelectSingleNode("action").FirstChild.Value.Trim(toTrim);
+                    this.id = racine.SelectSingleNode("id").FirstChild.Value.Trim();
+                    this.name = racine.SelectSingleNode("name").FirstChild.Value.Trim();
+                    this.from = racine.SelectSingleNode("from").FirstChild.Value.Trim();
+                    this.to = racine.SelectSingleNode("to").FirstChild.Value.Trim();
+                    this.action = racine.SelectSingleNode("action").FirstChild.Value.Trim();
                 }
                 catch { this.isValid = false; }
             }
