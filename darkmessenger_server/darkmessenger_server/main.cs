@@ -74,12 +74,31 @@ namespace darkmessenger
                     try
                     {
                         Socket s = serverListener.AcceptSocket();
-                        listOfClient.Add(s);
 
-                        this.Invoke(WriteConsoleDelegate, "Connexion accpectée pour : " + s.RemoteEndPoint.ToString());
+                        byte[] b;
+                        int k;
+                        b = new byte[100];
+                        k = s.Receive(b);
+                        Trame t = new Trame(utf8.GetString(b));
+                        if (t.isValidTrame)
+                        {
+                            if (t.type == "connection")
+                            {
+                                this.Invoke(WriteConsoleDelegate, "Connexion accpectée pour : " + t.from);
 
-                        waitMessageFromClient = new Thread(new ThreadStart(runWaitForMessage));
-                        waitMessageFromClient.Start();
+                                Client c = new Client(t.from, s);
+                                listOfClient.Add(c);
+
+                                waitMessageFromClient = new Thread(new ThreadStart(runWaitForMessage));
+                                waitMessageFromClient.Start();
+                            }
+                        }
+                        else
+                        { 
+                            
+                        }
+
+
                     }
                     catch (SocketException ex)
                     {
@@ -111,7 +130,7 @@ namespace darkmessenger
 
             try
             {
-                myClient = ((Socket)listOfClient[listOfClient.Count - 1]);
+                myClient = ((Client)listOfClient[listOfClient.Count - 1]).Socket;
 
             }
             catch (SocketException ex)
@@ -220,11 +239,11 @@ namespace darkmessenger
         private void bt_msg_test_Click(object sender, EventArgs e)
         {
             byte[] b;
-            foreach (Socket soc in listOfClient)
+            foreach (Client c in listOfClient)
             {
                 b = utf8.GetBytes("test");
                 Console.WriteLine("Transmission ...");
-                soc.BeginSend(b, 0, b.Length, SocketFlags.None, null, null);
+                c.Socket.BeginSend(b, 0, b.Length, SocketFlags.None, null, null);
                 Console.WriteLine("Transmission terminée.");
             }
         }
