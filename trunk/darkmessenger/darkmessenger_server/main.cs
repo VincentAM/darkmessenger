@@ -71,6 +71,7 @@ namespace darkmessenger_server
                     {
                         Socket s = serverListener.AcceptSocket();
                         listOfClient.Add(s);
+
                         this.Invoke(WriteConsoleDelegate, "Connexion accpectée pour : " + s.RemoteEndPoint.ToString());
                     }
                     catch (SocketException ex)
@@ -93,6 +94,11 @@ namespace darkmessenger_server
                 Console.WriteLine("Erreur ..." + e.StackTrace);
                 Console.Read();
             }
+        }
+
+        private void runWaitForMessage()
+        {
+
         }
 
         #endregion
@@ -123,16 +129,33 @@ namespace darkmessenger_server
         private void bt_stop_listen_Click(object sender, EventArgs e)
         {
             serverListener.Stop();
+            bt_stop_listen.Enabled = false;
+            bt_start_listen.Enabled = true;
         }
 
         private void bt_start_listen_Click(object sender, EventArgs e)
         {
             listOfClient = new ArrayList();
-
             waitForNewConnection = new Thread(new ThreadStart(runWaitForNewConnection));
             waitForNewConnection.Start();
+
+            bt_stop_listen.Enabled = true;
+            bt_start_listen.Enabled = false;
+        }
+
+        private void lb_clients_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            bt_close_client.Enabled = true;
+        }
+
+        private void bt_close_client_Click(object sender, EventArgs e)
+        {
+
         }
 
         #endregion
+
+        
+
     }
 }
