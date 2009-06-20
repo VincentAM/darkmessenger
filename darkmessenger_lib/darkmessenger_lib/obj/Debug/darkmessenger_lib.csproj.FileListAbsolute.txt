@@ -1,0 +1,5 @@
+J:\dev\c_sharp\darkmessenger_lib\darkmessenger_lib\bin\Debug\darkmessenger_lib.dll
+J:\dev\c_sharp\darkmessenger_lib\darkmessenger_lib\bin\Debug\darkmessenger_lib.pdb
+J:\dev\c_sharp\darkmessenger_lib\darkmessenger_lib\obj\Debug\ResolveAssemblyReference.cache
+J:\dev\c_sharp\darkmessenger_lib\darkmessenger_lib\obj\Debug\darkmessenger_lib.dll
+J:\dev\c_sharp\darkmessenger_lib\darkmessenger_lib\obj\Debug\darkmessenger_lib.pdb

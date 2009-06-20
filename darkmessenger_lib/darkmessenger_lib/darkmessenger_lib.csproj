@@ -8,7 +8,7 @@
     <ProjectGuid>{801CC0E8-AA14-4B93-90F9-ADBEEA7E58C9}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>darkmessenger_lib</RootNamespace>
+    <RootNamespace>darkmessenger</RootNamespace>
     <AssemblyName>darkmessenger_lib</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -45,8 +45,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Trame.cs" />
+    <Compile Include="TrameClient.cs" />
+    <Compile Include="TrameServer.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
