@@ -69,7 +69,7 @@ namespace darkmessenger_server
                     }
                     catch (SocketException ex)
                     {
-                        Console.WriteLine(ex.Message);
+                        //Console.WriteLine(ex.Message);
                         foreach (Socket so in listOfClient)
                         {
                             so.Close();
