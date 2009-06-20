@@ -95,7 +95,11 @@ namespace darkmessenger
         private void main_FormClosing(object sender, FormClosingEventArgs e)
         {
             SendMessage(TrameClient.getDisconnectionTrame(pseudo));
-            tcp_client.Close();
+            if (tcp_client != null)
+            {
+                tcp_client.Close();
+                tcp_client = null;
+            }
         }
 
         #endregion
@@ -154,9 +158,19 @@ namespace darkmessenger
             {
                 try
                 {
+                    tcp_client.Close();
+                    tcp_client = null;
+                    //gogo delegate deconnexion avec parametre main  (cf connexion)
                     this.Invoke(WriteMessageDelegate, "Server arrêté", Color.Red);
+                    bt_connexion.Enabled = true;
+                    tb_adressip.Enabled = true;
+                    tb_pseudo.Enabled = true;
+                    tb_message.Enabled = false;
                 }
-                catch (InvalidOperationException exx){ }
+                catch (InvalidOperationException exx){
+                    tcp_client.Close();
+                    tcp_client = null;
+                }
             }
 
         }

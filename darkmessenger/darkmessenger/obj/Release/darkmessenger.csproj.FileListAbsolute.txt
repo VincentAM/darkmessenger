@@ -6,3 +6,4 @@ D:\Dev\WorkSpace\C#\SVN_Google\darkmessenger\darkmessenger\obj\Release\darkmesse
 D:\Dev\WorkSpace\C#\SVN_Google\darkmessenger\darkmessenger\obj\Release\darkmessenger.csproj.GenerateResource.Cache
 D:\Dev\WorkSpace\C#\SVN_Google\darkmessenger\darkmessenger\obj\Release\darkmessenger.exe
 D:\Dev\WorkSpace\C#\SVN_Google\darkmessenger\darkmessenger\obj\Release\darkmessenger.pdb
+D:\Dev\WorkSpace\C#\SVN_Google\darkmessenger\darkmessenger\bin\Release\darkmessenger_lib.dll
