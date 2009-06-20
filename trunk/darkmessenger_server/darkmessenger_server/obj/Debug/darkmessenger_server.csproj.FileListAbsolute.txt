@@ -14,3 +14,11 @@ D:\Dev\WorkSpace\C#\SVN_Google\darkmessenger\darkmessenger_server\obj\Debug\dark
 D:\Dev\WorkSpace\C#\SVN_Google\darkmessenger\darkmessenger_server\obj\Debug\darkmessenger_server.csproj.GenerateResource.Cache
 D:\Dev\WorkSpace\C#\SVN_Google\darkmessenger\darkmessenger_server\obj\Debug\darkmessenger_server.exe
 D:\Dev\WorkSpace\C#\SVN_Google\darkmessenger\darkmessenger_server\obj\Debug\darkmessenger_server.pdb
+J:\dev\c_sharp\darkmessenger_server\darkmessenger_server\obj\Debug\darkmessenger_server.exe
+J:\dev\c_sharp\darkmessenger_server\darkmessenger_server\obj\Debug\darkmessenger_server.pdb
+J:\dev\c_sharp\darkmessenger_server\darkmessenger_server\bin\Debug\darkmessenger_server.exe
+J:\dev\c_sharp\darkmessenger_server\darkmessenger_server\bin\Debug\darkmessenger_server.pdb
+J:\dev\c_sharp\darkmessenger_server\darkmessenger_server\obj\Debug\ResolveAssemblyReference.cache
+J:\dev\c_sharp\darkmessenger_server\darkmessenger_server\obj\Debug\darkmessenger_server.csproj.GenerateResource.Cache
+J:\dev\c_sharp\darkmessenger_server\darkmessenger_server\obj\Debug\darkmessenger.main.resources
+J:\dev\c_sharp\darkmessenger_server\darkmessenger_server\obj\Debug\darkmessenger.Properties.Resources.resources

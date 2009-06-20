@@ -8,7 +8,7 @@
     <ProjectGuid>{5CA957F1-54F0-4C32-B870-02F3F7CCD85C}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>darkmessenger_server</RootNamespace>
+    <RootNamespace>darkmessenger</RootNamespace>
     <AssemblyName>darkmessenger_server</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -69,6 +69,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
