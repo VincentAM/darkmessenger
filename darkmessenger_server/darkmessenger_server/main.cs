@@ -9,7 +9,7 @@ using System.Threading;
 using System.Net.Sockets;
 using System.Net;
 
-namespace darkmessenger_server
+namespace darkmessenger
 {
     #region delegate declaration
 

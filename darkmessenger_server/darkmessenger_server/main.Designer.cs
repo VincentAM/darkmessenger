@@ -1,4 +1,4 @@
-﻿namespace darkmessenger_server
+﻿namespace darkmessenger
 {
     partial class main
     {

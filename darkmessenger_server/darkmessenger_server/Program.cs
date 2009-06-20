@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 
-namespace darkmessenger_server
+namespace darkmessenger
 {
     static class Program
     {
