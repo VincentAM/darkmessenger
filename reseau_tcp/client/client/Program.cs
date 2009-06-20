@@ -13,11 +13,11 @@ namespace client
             try
             {
                 TcpClient tcpclnt = new TcpClient();
-                Console.WriteLine("Connecting.....");
+                Console.WriteLine("Connecion.....");
 
                 tcpclnt.Connect("192.168.0.2", 9999);
                 // use the ipaddress as in the server program
-                Console.WriteLine("Connected");
+                Console.WriteLine("Connecté");
 
                 byte[] ba;
                 String str="";
@@ -31,12 +31,12 @@ namespace client
                         break;
                     }
 
-                    Console.Write("Enter the string to be transmitted : ");
+                    Console.Write("Taper qqchose : ");
                     str = Console.ReadLine();
                     stm = tcpclnt.GetStream();
 
                     ba = asen.GetBytes(str);
-                    Console.WriteLine("Transmitting.....");
+                    Console.WriteLine("Transmission ...");
                     stm.Write(ba, 0, ba.Length);
                 }
 
@@ -45,7 +45,7 @@ namespace client
 
             catch (Exception e)
             {
-                Console.WriteLine("Error..... " + e.StackTrace);
+                Console.WriteLine("Erreur ..." + e.StackTrace);
                 Console.Read();
             }
         }
