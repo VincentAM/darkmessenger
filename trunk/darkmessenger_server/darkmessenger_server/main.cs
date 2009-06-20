@@ -52,6 +52,68 @@ namespace darkmessenger
             this.RefreshListOfConnected = new RefreshListOfConnectedHandler(refresh_list_of_connected);
         }
 
+        #region other methods
+
+        private void disconnect_user(string _name)
+        {
+            int i = 0;
+            foreach (Client c in listOfClient)
+            {
+                if (c.Name == _name)
+                {
+                    listOfClient.RemoveAt(i);
+                    try
+                    {
+                        c.Socket.Close();
+                    }
+                    catch (SocketException ex)
+                    {
+
+                    }
+                    break;
+                }
+                i++;
+            }
+        }
+
+        private void disconnect_all_user()
+        {
+            foreach (Client c in listOfClient)
+            {
+                try
+                {
+                    c.Socket.Close();
+                }
+                catch (SocketException ex)
+                {
+
+                }
+            }
+
+            listOfClient.Clear();
+        }
+
+        private void stop_listener()
+        {
+            if (waitForNewConnection != null)
+            {
+                disconnect_all_user();
+
+                try
+                {
+                    serverListener.Stop();
+                }
+                catch (InvalidCastException ex)
+                { }
+                catch (SocketException ex)
+                { }
+                bt_stop_listen.Enabled = false;
+                bt_start_listen.Enabled = true;
+            }
+        }
+
+        #endregion
+
         #region thread methods
 
         private void runWaitForNewConnection()
@@ -97,8 +159,6 @@ namespace darkmessenger
                         { 
                             
                         }
-
-
                     }
                     catch (SocketException ex)
                     {
@@ -224,16 +284,6 @@ namespace darkmessenger
         private void main_FormClosing(object sender, FormClosingEventArgs e)
         {
             stop_listener();
-        }
-
-        private void stop_listener()
-        {
-            if (waitForNewConnection != null)
-            {
-                serverListener.Stop();
-                bt_stop_listen.Enabled = false;
-                bt_start_listen.Enabled = true;
-            }
         }
 
         private void bt_msg_test_Click(object sender, EventArgs e)
