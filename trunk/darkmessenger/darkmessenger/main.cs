@@ -14,7 +14,7 @@ using System.Threading;
 
 namespace darkmessenger
 {
-    delegate void WriteMessageDelegateHandler(string text);
+    delegate void WriteMessageDelegateHandler(string text,Color c_color);
 
     public partial class main : Form
     {
@@ -35,7 +35,7 @@ namespace darkmessenger
         public main()
         {
             InitializeComponent();
-            this.WriteMessageDelegate = new WriteMessageDelegateHandler(WriteMessage);
+            this.WriteMessageDelegate = new WriteMessageDelegateHandler(AddMessage);
         }
 
         #region Event Méthodes
@@ -74,7 +74,7 @@ namespace darkmessenger
 
         public void StartConnexion()
         {
-            AddMessage("Connexion en cours...",Color.Orange);
+            AddMessage("Connexion en cours...",Color.Red);
             try
             {
                 tcp_client = new TcpClient(s_ip, i_port);
@@ -85,14 +85,13 @@ namespace darkmessenger
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Impossible de joindre : " + s_ip + ":" + i_port);
                 AddMessage("Echec de connexion",Color.Red);
             }
         }
 
         public void SendMessage()
         {
-            if (tb_message.Text != "")
+            if (tb_message.Text != "" && tcp_client!=null)
             {
                 Stream stm = tcp_client.GetStream();
                 byte[] ba = utf8.GetBytes(tb_message.Text);
@@ -110,25 +109,21 @@ namespace darkmessenger
                 byte[] ba = new byte[100];
                 while (stm.Read(ba, 0, 100) != 0)
                 {
-                    this.Invoke(WriteMessageDelegate, utf8.GetString(ba));
+                    this.Invoke(WriteMessageDelegate, "L'autre : " + utf8.GetString(ba),Color.YellowGreen);
                 }
             }
             catch (IOException ex)
             {
-                AddMessage("Server arrêté", Color.Red);
+                this.Invoke(WriteMessageDelegate, "Server arrêté" ,Color.Red);
             }
 
-        }
-
-        private void WriteMessage(string _s)
-        {
-            AddMessage(_s, Color.YellowGreen);
         }
 
         public void AddMessage(string s_mess,Color c_color)
         {
             rtb_allmessage.SelectionColor = c_color;
-            rtb_allmessage.AppendText(System.DateTime.Now.ToLongTimeString() + " : " + s_mess + "\n");
+            rtb_allmessage.AppendText(System.DateTime.Now.ToLongTimeString() + " : " + s_mess);
+            rtb_allmessage.AppendText("\n");
         }
 
        
