@@ -117,7 +117,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(3, 9);
+            this.label2.Location = new System.Drawing.Point(4, 5);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(73, 15);
             this.label2.TabIndex = 4;
@@ -150,11 +150,12 @@
             this.lb_client.FormattingEnabled = true;
             this.lb_client.Location = new System.Drawing.Point(5, 5);
             this.lb_client.Name = "lb_client";
-            this.lb_client.Size = new System.Drawing.Size(127, 199);
+            this.lb_client.Size = new System.Drawing.Size(125, 186);
             this.lb_client.TabIndex = 6;
             // 
             // panel3
             // 
+            this.panel3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel3.Controls.Add(this.lb_client);
             this.panel3.Location = new System.Drawing.Point(390, 46);
             this.panel3.Name = "panel3";
