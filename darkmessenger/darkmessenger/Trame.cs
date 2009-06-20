@@ -11,11 +11,11 @@ namespace darkmessenger
         public string name;
         public string from;
         public string to;
+        public string action;
 
         public bool isValid;
 
         public string data;
-        public string action;
         public string message;
 
         public trame(string _s)
