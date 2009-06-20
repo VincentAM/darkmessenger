@@ -15,12 +15,6 @@ namespace server
             {
                 IPAddress ipAd = IPAddress.Parse("192.168.0.2");
                 int port = 9999;
-                // use local m/c IP address, and 
-
-                // use the same in the client
-
-
-                /* Initializes the Listener */
                 TcpListener myList = new TcpListener(ipAd, port);
 
                 /* Start Listeneting at the specified port */
@@ -34,16 +28,27 @@ namespace server
                 Socket s = myList.AcceptSocket();
                 Console.WriteLine("Connection accepted from " + s.RemoteEndPoint);
 
-                byte[] b = new byte[100];
-                int k = s.Receive(b);
-                Console.WriteLine("Recieved...");
-                for (int i = 0; i < k; i++)
-                    Console.Write(Convert.ToChar(b[i]));
+                byte[] b;
+                int k;
+                string str="";
 
-                ASCIIEncoding asen = new ASCIIEncoding();
-                s.Send(asen.GetBytes("The string was recieved by the server."));
-                Console.WriteLine("\nSent Acknowledgement");
-                /* clean up */
+                while (true)
+                {
+                    if (str == "q")
+                    {
+                        break;
+                    }
+                    else { str = ""; }
+
+                    b = new byte[100];
+                    k = s.Receive(b);
+                    Console.WriteLine("Recieved...");
+                    for (int i = 0; i < k; i++)
+                        str += Convert.ToChar(b[i]);
+
+                    Console.WriteLine(str);
+                }
+
                 s.Close();
                 myList.Stop();
 
@@ -51,9 +56,10 @@ namespace server
             catch (Exception e)
             {
                 Console.WriteLine("Error..... " + e.StackTrace);
+                Console.Read();
             }
 
-            Console.Read();
+            
         }
     }
 }

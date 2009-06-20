@@ -8,10 +8,8 @@ namespace client
 {
     class Program
     {
-
         static void Main()
         {
-
             try
             {
                 TcpClient tcpclnt = new TcpClient();
@@ -19,25 +17,28 @@ namespace client
 
                 tcpclnt.Connect("192.168.0.2", 9999);
                 // use the ipaddress as in the server program
-
-
                 Console.WriteLine("Connected");
-                Console.Write("Enter the string to be transmitted : ");
 
-                String str = Console.ReadLine();
-                Stream stm = tcpclnt.GetStream();
-
+                byte[] ba;
+                String str="";
+                Stream stm;
                 ASCIIEncoding asen = new ASCIIEncoding();
-                byte[] ba = asen.GetBytes(str);
-                Console.WriteLine("Transmitting.....");
 
-                stm.Write(ba, 0, ba.Length);
+                while (true)
+                {
+                    if (str == "q")
+                    {
+                        break;
+                    }
 
-                byte[] bb = new byte[100];
-                int k = stm.Read(bb, 0, 100);
+                    Console.Write("Enter the string to be transmitted : ");
+                    str = Console.ReadLine();
+                    stm = tcpclnt.GetStream();
 
-                for (int i = 0; i < k; i++)
-                    Console.Write(Convert.ToChar(bb[i]));
+                    ba = asen.GetBytes(str);
+                    Console.WriteLine("Transmitting.....");
+                    stm.Write(ba, 0, ba.Length);
+                }
 
                 tcpclnt.Close();
             }
@@ -47,7 +48,6 @@ namespace client
                 Console.WriteLine("Error..... " + e.StackTrace);
                 Console.Read();
             }
-            Console.Read();
         }
     }
 }

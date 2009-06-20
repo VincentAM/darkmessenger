@@ -3,3 +3,8 @@ J:\dev\c_sharp\reseau\reseau_tcp\client\client\client\bin\Debug\client.exe
 J:\dev\c_sharp\reseau\reseau_tcp\client\client\client\bin\Debug\client.pdb
 J:\dev\c_sharp\reseau\reseau_tcp\client\client\client\obj\Debug\client.exe
 J:\dev\c_sharp\reseau\reseau_tcp\client\client\client\obj\Debug\client.pdb
+J:\dev\c_sharp\reseau\reseau_tcp\client\client\obj\Debug\client.exe
+J:\dev\c_sharp\reseau\reseau_tcp\client\client\obj\Debug\client.pdb
+J:\dev\c_sharp\reseau\reseau_tcp\client\client\bin\Debug\client.exe
+J:\dev\c_sharp\reseau\reseau_tcp\client\client\bin\Debug\client.pdb
+J:\dev\c_sharp\reseau\reseau_tcp\client\client\obj\Debug\ResolveAssemblyReference.cache
