@@ -47,6 +47,7 @@
             // 
             // tb_message
             // 
+            this.tb_message.Enabled = false;
             this.tb_message.Location = new System.Drawing.Point(82, 4);
             this.tb_message.Name = "tb_message";
             this.tb_message.Size = new System.Drawing.Size(284, 20);
@@ -131,7 +132,7 @@
             this.panel2.Controls.Add(this.tb_message);
             this.panel2.Location = new System.Drawing.Point(7, 46);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(377, 210);
+            this.panel2.Size = new System.Drawing.Size(377, 237);
             this.panel2.TabIndex = 5;
             // 
             // rtb_allmessage
@@ -139,7 +140,7 @@
             this.rtb_allmessage.Location = new System.Drawing.Point(6, 34);
             this.rtb_allmessage.Name = "rtb_allmessage";
             this.rtb_allmessage.ReadOnly = true;
-            this.rtb_allmessage.Size = new System.Drawing.Size(360, 165);
+            this.rtb_allmessage.Size = new System.Drawing.Size(360, 195);
             this.rtb_allmessage.TabIndex = 5;
             this.rtb_allmessage.Text = "";
             // 
@@ -150,7 +151,7 @@
             this.lb_client.FormattingEnabled = true;
             this.lb_client.Location = new System.Drawing.Point(5, 5);
             this.lb_client.Name = "lb_client";
-            this.lb_client.Size = new System.Drawing.Size(125, 186);
+            this.lb_client.Size = new System.Drawing.Size(125, 225);
             this.lb_client.TabIndex = 6;
             // 
             // panel3
@@ -160,14 +161,14 @@
             this.panel3.Location = new System.Drawing.Point(390, 46);
             this.panel3.Name = "panel3";
             this.panel3.Padding = new System.Windows.Forms.Padding(5);
-            this.panel3.Size = new System.Drawing.Size(137, 210);
+            this.panel3.Size = new System.Drawing.Size(137, 237);
             this.panel3.TabIndex = 7;
             // 
             // main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(537, 267);
+            this.ClientSize = new System.Drawing.Size(537, 288);
             this.Controls.Add(this.panel3);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
