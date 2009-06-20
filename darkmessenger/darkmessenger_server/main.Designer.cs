@@ -46,7 +46,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Trebuchet MS", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(303, 14);
+            this.label1.Location = new System.Drawing.Point(303, 13);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(90, 16);
             this.label1.TabIndex = 0;
@@ -59,7 +59,7 @@
             this.p_etat_server.Location = new System.Drawing.Point(399, 13);
             this.p_etat_server.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.p_etat_server.Name = "p_etat_server";
-            this.p_etat_server.Size = new System.Drawing.Size(16, 19);
+            this.p_etat_server.Size = new System.Drawing.Size(16, 16);
             this.p_etat_server.TabIndex = 1;
             // 
             // rtb_console
@@ -145,6 +145,7 @@
             this.button2.TabIndex = 9;
             this.button2.Text = "Stop";
             this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // main
             // 

@@ -22,6 +22,10 @@ namespace darkmessenger_server
         private WriteConsoleDelegateHandler WriteConsoleDelegate;
         private ChangeStateServerHandler ChangeStateServer;
 
+        TcpListener serverListener;
+        ArrayList listOfClient;
+
+
         public main()
         {
             InitializeComponent();
@@ -31,6 +35,8 @@ namespace darkmessenger_server
 
         private void bt_start_listen_Click(object sender, EventArgs e)
         {
+            listOfClient = new ArrayList();
+
             waitForNewConnection = new Thread(new ThreadStart(runWaitForNewConnection));
             waitForNewConnection.Start();
         }
@@ -39,9 +45,9 @@ namespace darkmessenger_server
         {
             try
             {
-                IPAddress ipAd = IPAddress.Parse("192.168.0.2");//IPAddress.Parse("192.168.0.2");
+                IPAddress ipAd = Dns.Resolve(Dns.GetHostName()).AddressList[0];
                 int port = 12609;
-                TcpListener serverListener = new TcpListener(ipAd, port);
+                serverListener = new TcpListener(ipAd, port);
                 //this.Invoke(WriteConsoleDelegate, "mon ip : " + ipAd.Address.ToString());
 
                 /* Start Listeneting at the specified port */
@@ -54,34 +60,27 @@ namespace darkmessenger_server
                 while (true)
                 {
                     this.Invoke(WriteConsoleDelegate, "Attente ...");
-                    Socket s = serverListener.AcceptSocket();
-                    this.Invoke(WriteConsoleDelegate, "Connexion accpectée pour : " + s.RemoteEndPoint.ToString());
+
+                    try
+                    {
+                        Socket s = serverListener.AcceptSocket();
+                        listOfClient.Add(s);
+                        this.Invoke(WriteConsoleDelegate, "Connexion accpectée pour : " + s.RemoteEndPoint.ToString());
+                    }
+                    catch (SocketException ex)
+                    {
+                        Console.WriteLine(ex.Message);
+                        foreach (Socket so in listOfClient)
+                        {
+                            so.Close();
+                        }
+                        break;
+                    }
                 }
 
-                //byte[] b;
-                //int k;
-                //string str = "";
-
-                //while (true)
-                //{
-                //    if (str == "q")
-                //    {
-                //        break;
-                //    }
-                //    else { str = ""; }
-
-                //    b = new byte[100];
-                //    k = s.Receive(b);
-                //    Console.WriteLine("Reception ...");
-                //    for (int i = 0; i < k; i++)
-                //        str += Convert.ToChar(b[i]);
-
-                //    Console.WriteLine(str);
-                //}
-
-                //s.Close();
+                this.Invoke(WriteConsoleDelegate, "Le server est coupé.");
+                this.Invoke(ChangeStateServer, false);
                 serverListener.Stop();
-
             }
             catch (Exception e)
             {
@@ -105,6 +104,11 @@ namespace darkmessenger_server
             {
                 p_etat_server.BackColor = Color.Red;
             }
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            serverListener.Stop();
         }
     }
 }
