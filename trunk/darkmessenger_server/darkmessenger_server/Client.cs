@@ -33,5 +33,11 @@ namespace darkmessenger
             this.socket = _s;
             this.ip = _i;
         }
+
+        public Client(string _n, Socket _s)
+        {
+            this.name = _n;
+            this.socket = _s;
+        }
     }
 }
