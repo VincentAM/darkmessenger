@@ -20,8 +20,9 @@ namespace darkmessenger
 
         public trame(string _s)
         {
-            this.load();
+            this.data = _s;
             this.isValid = true;
+            this.load();
         }
 
         private void load()
