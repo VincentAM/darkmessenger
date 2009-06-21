@@ -31,7 +31,7 @@ namespace darkmessenger
             return "<trame><type>disconnection</type><from>" + _from + "</from></trame>";
         }
 
-        public static string getListOfConnected(string _from)
+        public static string getListOfConnectedTrame(string _from)
         {
             return "<trame><type>list_of_connected</type><from>" + _from + "></from></trame>";
         }
