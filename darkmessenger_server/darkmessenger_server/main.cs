@@ -129,35 +129,45 @@ namespace darkmessenger
                 this.Invoke(WriteConsoleDelegate, "Le server attend les connexions sur le port : " + port.ToString());
                 this.Invoke(ChangeStateServer, true);
 
+                this.Invoke(WriteConsoleDelegate, "Lancement de la boucle des connexions.");
+
                 while (true)
                 {
-                    this.Invoke(WriteConsoleDelegate, "Attente ...");
-
                     try
                     {
+                        //Connexion avec l'utilisateur - Le code est bloqué sur cette ligne tant qu'il n'y a pas de demande de connexion
                         Socket s = serverListener.AcceptSocket();
+                        this.Invoke(WriteConsoleDelegate, "Tentative de connexion.");
 
+                        // Reception du premier message, qui doit être une demande de connexion
                         byte[] b;
                         int k;
                         b = new byte[100];
                         k = s.Receive(b);
                         Trame t = new Trame(utf8.GetString(b));
-                        if (t.isValidTrame)
+                        if (t.isValidTrame)//Si la trame est valide
                         {
-                            if (t.type == "connection")
+                            if (t.type == "connection")//Si c'est une demande de connexion
                             {
                                 this.Invoke(WriteConsoleDelegate, "Connexion accpectée pour : " + t.from);
 
                                 Client c = new Client(t.from, s);
                                 listOfClient.Add(c);
 
+                                this.Invoke(RefreshListOfConnected);
                                 waitMessageFromClient = new Thread(new ThreadStart(runWaitForMessage));
                                 waitMessageFromClient.Start();
+                            }
+                            else
+                            {
+                                s.Close();
+                                serverListener.Stop();
                             }
                         }
                         else
                         { 
-                            
+                            s.Close();
+                            serverListener.Stop();
                         }
                     }
                     catch (SocketException ex)
@@ -191,7 +201,6 @@ namespace darkmessenger
             try
             {
                 myClient = ((Client)listOfClient[listOfClient.Count - 1]).Socket;
-
             }
             catch (SocketException ex)
             {
@@ -202,18 +211,34 @@ namespace darkmessenger
             {
                 try
                 {
-                    if (str == "q")
-                    {
-                        break;
-                    }
-                    else { str = ""; }
+                        b = new byte[100];
+                        try
+                        {
+                            k = myClient.Receive(b);
+                        }
+                        catch (ObjectDisposedException ex3)
+                        { }
+                        Trame t = new Trame(utf8.GetString(b));
+                        if (t.isValidTrame)//Si la trame est valide
+                        {
+                            if (t.type == "disconnection")//Si c'est une demande de connexion
+                            {
+                                this.Invoke(WriteConsoleDelegate, "Déconnexion demandée par : " + t.from);
 
-                    b = new byte[100];
-                    k = myClient.Receive(b);
-
-                    this.Invoke(WriteConsoleDelegate, "Message reçu : " + utf8.GetString(b));
+                                disconnect_user(t.from);
+                                this.Invoke(RefreshListOfConnected);
+                                this.Invoke(WriteConsoleDelegate, "Déconnexion de " + t.from + " ok.");
+                            }
+                            else
+                            {
+                                this.Invoke(WriteConsoleDelegate, "Message reçu : " + utf8.GetString(b));
+                            }
+                        }
+                        else
+                        {
+                            break;
+                        }
                 }
-
                 catch (SocketException ex)
                 {
                     try
@@ -237,7 +262,8 @@ namespace darkmessenger
 
         private void write_on_console(string _s)
         {
-            rtb_console.AppendText(_s);
+            DateTime.Today.ToString();
+            rtb_console.AppendText("[" + DateTime.Now.Hour + ":" + DateTime.Now.Minute + ":" + DateTime.Now.Second + "] " + _s);
             rtb_console.AppendText("\n");
         }
 
@@ -255,9 +281,11 @@ namespace darkmessenger
 
         private void refresh_list_of_connected()
         {
+            lb_clients.Items.Clear();
+
             foreach (Client c in listOfClient)
-            { 
-            
+            {
+                lb_clients.Items.Add(c.Name);
             }
         }
 
