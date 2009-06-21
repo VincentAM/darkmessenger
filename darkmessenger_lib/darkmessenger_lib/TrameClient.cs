@@ -4,6 +4,9 @@ using System.Text;
 
 namespace darkmessenger
 {
+    /// <summary>
+    /// Liste des trame qui peuvent partir du client.
+    /// </summary>
     public static class TrameClient
     {
         private static UTF8Encoding utf8 = new UTF8Encoding();
@@ -26,6 +29,11 @@ namespace darkmessenger
         public static string getDisconnectionTrame(string _from)
         {
             return "<trame><type>disconnection</type><from>" + _from + "</from></trame>";
+        }
+
+        public static string getListOfConnected(string _from)
+        {
+            return "<trame><type>list_of_connected</type><from>" + _from + "></from></trame>";
         }
     }
 }
