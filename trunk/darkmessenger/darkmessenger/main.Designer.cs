@@ -111,7 +111,7 @@
             this.tb_adressip.Name = "tb_adressip";
             this.tb_adressip.Size = new System.Drawing.Size(127, 20);
             this.tb_adressip.TabIndex = 3;
-            this.tb_adressip.Text = "88.166.136.92:9999";
+            this.tb_adressip.Text = "192.168.0.5:9999";
             this.tb_adressip.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // label2
