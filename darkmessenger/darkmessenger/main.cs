@@ -18,6 +18,7 @@ namespace darkmessenger
 
     delegate void WriteMessageDelegateHandler(string text,Color c_color);
     delegate void ConnexionDelegateHandler(main _main);
+    delegate void DeconnexionDelegateHandler(main _main);
     delegate void LoadListClientDelegateHandler(ListBox _lb);
 
     #endregion
@@ -47,6 +48,7 @@ namespace darkmessenger
 
         private WriteMessageDelegateHandler WriteMessageDelegate;
         private ConnexionDelegateHandler ConnexionDelegate;
+        private DeconnexionDelegateHandler DeconnexionDelegate;
         private LoadListClientDelegateHandler LoadListClientDelegate;
 
         #endregion
@@ -54,8 +56,10 @@ namespace darkmessenger
         public main()
         {
             InitializeComponent();
+            //instanciation des delegués
             this.WriteMessageDelegate = new WriteMessageDelegateHandler(AddMessage);
             this.ConnexionDelegate = new ConnexionDelegateHandler(EnabledConnexion);
+            this.DeconnexionDelegate = new DeconnexionDelegateHandler(EnabledDeconnexion);
             this.LoadListClientDelegate = new LoadListClientDelegateHandler(LoadListClient);
         }
 
@@ -95,11 +99,7 @@ namespace darkmessenger
         private void main_FormClosing(object sender, FormClosingEventArgs e)
         {
             SendMessage(TrameClient.getDisconnectionTrame(pseudo));
-            if (tcp_client != null)
-            {
-                tcp_client.Close();
-                tcp_client = null;
-            }
+            CloseTcpClient();
         }
 
         #endregion
@@ -158,18 +158,11 @@ namespace darkmessenger
             {
                 try
                 {
-                    tcp_client.Close();
-                    tcp_client = null;
-                    //gogo delegate deconnexion avec parametre main  (cf connexion)
-                    this.Invoke(WriteMessageDelegate, "Server arrêté", Color.Red);
-                    bt_connexion.Enabled = true;
-                    tb_adressip.Enabled = true;
-                    tb_pseudo.Enabled = true;
-                    tb_message.Enabled = false;
+                    CloseTcpClient();
+                    this.Invoke(DeconnexionDelegate, this);
                 }
                 catch (InvalidOperationException exx){
-                    tcp_client.Close();
-                    tcp_client = null;
+                    CloseTcpClient();
                 }
             }
 
@@ -177,7 +170,7 @@ namespace darkmessenger
 
         #endregion
 
-        #region Méthodes invokées dans les delegés
+        #region Méthodes invokées dans les delegués
 
         public void AddMessage(string s_mess, Color c_color)
         {
@@ -197,14 +190,18 @@ namespace darkmessenger
             _main.WaitMessage();
         }
 
+        public void EnabledDeconnexion(main _main)
+        {
+            _main.bt_connexion.Enabled = true;
+            _main.tb_adressip.Enabled = true;
+            _main.tb_pseudo.Enabled = true;
+            _main.tb_message.Enabled = false;
+            _main.AddMessage("Server arrêté", Color.Red);
+        }
+
         public void LoadListClient(ListBox _lb)
         {
-            lb_client = new ListBox();
-            foreach (String s_item in _lb.Items)
-            {
-                lb_client.Items.Add(s_item);
-            }
-            lb_client.Refresh();
+            lb_client = _lb;
         }
 
         #endregion
@@ -224,5 +221,13 @@ namespace darkmessenger
 
         #endregion
 
+        public void CloseTcpClient()
+        {
+            if(tcp_client!=null)
+            {
+                tcp_client.Close();
+                tcp_client=null;
+            }
+        }
     }
 }
