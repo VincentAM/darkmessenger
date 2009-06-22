@@ -54,6 +54,29 @@ namespace darkmessenger
 
         #region other methods
 
+        private void send_list_of_connected()
+        {
+            ArrayList listOfNames = new ArrayList();
+            foreach (Client c in listOfClient)
+            {
+                listOfNames.Add(c.Name);
+            }
+
+            foreach (Client c in listOfClient)
+            {
+                send_msg(c, TrameServer.getListOfConnectedTrame(listOfNames));
+            }          
+        }
+
+        private void send_msg(Client _c, string _s)
+        {
+            byte[] b;
+            b = utf8.GetBytes(_s);
+            Console.WriteLine("Transmission ...");
+            _c.Socket.BeginSend(b, 0, b.Length, SocketFlags.None, null, null);
+            Console.WriteLine("Transmission terminée.");
+        }
+
         private void disconnect_user(string _name)
         {
             int i = 0;
@@ -142,7 +165,7 @@ namespace darkmessenger
                         // Reception du premier message, qui doit être une demande de connexion
                         byte[] b;
                         int k;
-                        b = new byte[100];
+                        b = new byte[1024];
                         k = s.Receive(b);
                         Trame t = new Trame(utf8.GetString(b));
                         if (t.isValidTrame)//Si la trame est valide
@@ -155,6 +178,7 @@ namespace darkmessenger
                                 listOfClient.Add(c);
 
                                 this.Invoke(RefreshListOfConnected);
+                                send_list_of_connected();
                                 waitMessageFromClient = new Thread(new ThreadStart(runWaitForMessage));
                                 waitMessageFromClient.Start();
                             }
@@ -316,13 +340,9 @@ namespace darkmessenger
 
         private void bt_msg_test_Click(object sender, EventArgs e)
         {
-            byte[] b;
             foreach (Client c in listOfClient)
             {
-                b = utf8.GetBytes("test");
-                Console.WriteLine("Transmission ...");
-                c.Socket.BeginSend(b, 0, b.Length, SocketFlags.None, null, null);
-                Console.WriteLine("Transmission terminée.");
+                send_msg(c, "test");
             }
         }
 
