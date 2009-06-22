@@ -17,3 +17,4 @@ D:\Dev\WorkSpace\C#\SVN_Google\darkmessenger\darkmessenger\obj\Debug\darkmesseng
 D:\Dev\WorkSpace\C#\SVN_Google\darkmessenger\darkmessenger\obj\Debug\darkmessenger.Properties.Resources.resources
 D:\Dev\WorkSpace\C#\SVN_Google\darkmessenger\darkmessenger\obj\Debug\darkmessenger.csproj.GenerateResource.Cache
 D:\Dev\WorkSpace\C#\SVN_Google\darkmessenger\darkmessenger\bin\Debug\darkmessenger_lib.dll
+J:\dev\c_sharp\darkmessenger\darkmessenger\bin\Debug\darkmessenger_lib.dll
