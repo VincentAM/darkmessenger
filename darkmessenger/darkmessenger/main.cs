@@ -141,8 +141,8 @@ namespace darkmessenger
             try
             {
                 Stream stm = tcp_client.GetStream();
-                byte[] ba = new byte[100];
-                while (stm.Read(ba, 0, 100) != 0)
+                byte[] ba = new byte[1024];
+                while (stm.Read(ba, 0, 1024) != 0)
                 {
                     //analyse de trame
 
