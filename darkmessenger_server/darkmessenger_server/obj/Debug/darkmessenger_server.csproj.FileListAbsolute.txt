@@ -23,7 +23,6 @@ J:\dev\c_sharp\darkmessenger_server\darkmessenger_server\obj\Debug\darkmessenger
 J:\dev\c_sharp\darkmessenger_server\darkmessenger_server\obj\Debug\darkmessenger.main.resources
 J:\dev\c_sharp\darkmessenger_server\darkmessenger_server\obj\Debug\darkmessenger.Properties.Resources.resources
 J:\dev\c_sharp\darkmessenger_server\darkmessenger_server\bin\Debug\darkmessenger_lib.dll
-J:\dev\c_sharp\darkmessenger_server\darkmessenger_server\bin\Debug\darkmessenger_lib.pdb
 D:\Dev\WorkSpace\C#\SVN_Google\darkmessenger_server\darkmessenger_server\obj\Debug\darkmessenger_server.exe
 D:\Dev\WorkSpace\C#\SVN_Google\darkmessenger_server\darkmessenger_server\obj\Debug\darkmessenger_server.pdb
 D:\Dev\WorkSpace\C#\SVN_Google\darkmessenger_server\darkmessenger_server\bin\Debug\darkmessenger_server.exe

@@ -40,7 +40,6 @@
             this.bt_stop_listen = new System.Windows.Forms.Button();
             this.tb_port = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
-            this.bt_msg_test = new System.Windows.Forms.Button();
             this.panel2.SuspendLayout();
             this.panel3.SuspendLayout();
             this.SuspendLayout();
@@ -174,22 +173,11 @@
             this.label4.TabIndex = 11;
             this.label4.Text = "Port : ";
             // 
-            // bt_msg_test
-            // 
-            this.bt_msg_test.Location = new System.Drawing.Point(299, 24);
-            this.bt_msg_test.Name = "bt_msg_test";
-            this.bt_msg_test.Size = new System.Drawing.Size(75, 23);
-            this.bt_msg_test.TabIndex = 12;
-            this.bt_msg_test.Text = "Test";
-            this.bt_msg_test.UseVisualStyleBackColor = true;
-            this.bt_msg_test.Click += new System.EventHandler(this.bt_msg_test_Click);
-            // 
             // main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(537, 301);
-            this.Controls.Add(this.bt_msg_test);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.tb_port);
             this.Controls.Add(this.bt_stop_listen);
@@ -226,7 +214,6 @@
         private System.Windows.Forms.Button bt_stop_listen;
         private System.Windows.Forms.TextBox tb_port;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Button bt_msg_test;
 
     }
 }
