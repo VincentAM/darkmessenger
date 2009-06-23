@@ -78,7 +78,6 @@
             this.rtb_console.Size = new System.Drawing.Size(373, 224);
             this.rtb_console.TabIndex = 2;
             this.rtb_console.Text = "";
-            this.rtb_console.ScrollToCaret();
             // 
             // lb_clients
             // 

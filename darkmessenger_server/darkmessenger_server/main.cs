@@ -341,6 +341,8 @@ namespace darkmessenger
             DateTime.Today.ToString();
             rtb_console.AppendText("[" + DateTime.Now.Hour + ":" + DateTime.Now.Minute + ":" + DateTime.Now.Second + "] " + _s);
             rtb_console.AppendText("\n");
+            rtb_console.Select(rtb_console.Text.Length, 0);
+            rtb_console.ScrollToCaret();
         }
 
         private void change_state_server(bool _b)
