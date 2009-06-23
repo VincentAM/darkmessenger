@@ -79,6 +79,18 @@ namespace darkmessenger
             sendMessage.Start();
         }
 
+        private void send_msg_to_all(string _from, string _msg)
+        {
+            foreach (Client c in listOfClient)
+            {
+                if (c.Name != _from)
+                {
+                    send_msg(c, TrameClient.getMsgTrame(_from, _msg, c.Name));
+                    this.Invoke(WriteConsoleDelegate, "Redirection du message de [" + _from + "] à "+c.Name);
+                }
+            }
+        }
+
         private void disconnect_user(string _name)
         {
             int i = 0;
@@ -202,7 +214,9 @@ namespace darkmessenger
                             int k;
                             b = new byte[1024];
                             k = s.Receive(b);
-                            Trame t = new Trame(utf8.GetString(b));
+                            string temp = utf8.GetString(b);
+                            Console.WriteLine(temp);
+                            Trame t = new Trame(temp);
                             if (t.isValidTrame)//Si la trame est valide
                             {
                                 if (t.type == TrameType.Connection)//Si c'est une demande de connexion
@@ -305,7 +319,7 @@ namespace darkmessenger
                         }
                         else if (t.type == TrameType.Message)
                         {
-                            this.Invoke(WriteConsoleDelegate, "Message reçu ["+t.from+"] pour ["+t.to+"]: " + t.msg);
+                            this.Invoke(WriteConsoleDelegate, "Message reçu ["+t.from+"] pour ["+t.to+"] : " + t.msg);
                             if (t.to != "server")
                             {
                                 int index = getIndexClientInList(t.to);
@@ -324,6 +338,11 @@ namespace darkmessenger
                                 this.Invoke(WriteConsoleDelegate, "Message pour le server de ["+t.from+"] : "+t.msg);
                             }
                         }
+                        else if (t.type == TrameType.MessageToAll)
+                        {
+                            this.Invoke(WriteConsoleDelegate, "Message reçu [" + t.from + "] pour tout le monde : " + t.msg);
+                            send_msg_to_all(t.from, t.msg);
+                        }
                         else
                         {
                             this.Invoke(WriteConsoleDelegate, "string reçue : " + utf8.GetString(b));
@@ -340,6 +359,7 @@ namespace darkmessenger
                     {
                         myClient.Close();
                         this.Invoke(WriteConsoleDelegate, "Utilisateur déconnecté.");
+                        this.Invoke(RefreshListOfClient);
                     }
                     catch (ObjectDisposedException ex2)
                     {

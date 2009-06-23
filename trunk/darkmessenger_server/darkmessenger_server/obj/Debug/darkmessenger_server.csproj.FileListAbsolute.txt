@@ -32,3 +32,4 @@ D:\Dev\WorkSpace\C#\SVN_Google\darkmessenger_server\darkmessenger_server\obj\Deb
 D:\Dev\WorkSpace\C#\SVN_Google\darkmessenger_server\darkmessenger_server\obj\Debug\darkmessenger.main.resources
 D:\Dev\WorkSpace\C#\SVN_Google\darkmessenger_server\darkmessenger_server\obj\Debug\darkmessenger.Properties.Resources.resources
 D:\Dev\WorkSpace\C#\SVN_Google\darkmessenger_server\darkmessenger_server\obj\Debug\darkmessenger_server.csproj.GenerateResource.Cache
+J:\dev\c_sharp\darkmessenger_server\darkmessenger_server\bin\Debug\darkmessenger_lib.pdb
