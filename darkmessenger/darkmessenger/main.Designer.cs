@@ -84,6 +84,7 @@
             this.tb_pseudo.Size = new System.Drawing.Size(104, 20);
             this.tb_pseudo.TabIndex = 6;
             this.tb_pseudo.Text = "Sleepy";
+            this.tb_pseudo.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tb_pseudo_KeyPress);
             // 
             // label3
             // 
@@ -111,8 +112,9 @@
             this.tb_adressip.Name = "tb_adressip";
             this.tb_adressip.Size = new System.Drawing.Size(127, 20);
             this.tb_adressip.TabIndex = 3;
-            this.tb_adressip.Text = "192.168.0.2:9999";
+            this.tb_adressip.Text = "192.168.0.3:9999";
             this.tb_adressip.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.tb_adressip.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tb_adressip_KeyPress);
             // 
             // label2
             // 
@@ -189,7 +191,6 @@
         private System.Windows.Forms.TextBox tb_message;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.TextBox tb_adressip;
         private System.Windows.Forms.Button bt_connexion;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Panel panel2;
@@ -198,6 +199,7 @@
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.TextBox tb_pseudo;
         private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.TextBox tb_adressip;
     }
 }
 

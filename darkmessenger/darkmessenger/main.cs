@@ -67,13 +67,48 @@ namespace darkmessenger
 
         private void bt_connexion_Click(object sender, EventArgs e)
         {
+            Connexion();
+        }
+
+        private void tb_adressip_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == 13)
+                Connexion();
+        }
+
+        private void tb_pseudo_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == 13)
+                Connexion();
+        }
+
+        private void tb_message_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == 13)
+            {
+                if (lb_client.SelectedIndex != -1 && lb_client.SelectedItem.ToString() != pseudo)
+                {
+                    SendMessage(TrameClient.getMsgTrame(pseudo, tb_message.Text, lb_client.SelectedItem.ToString()));
+                    tb_message.Text = "";
+                }
+            }
+        }
+
+        private void main_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            SendMessage(TrameClient.getDisconnectionTrame(pseudo));
+            CloseTcpClient();
+        }
+
+        private void Connexion()
+        {
             try
             {
                 String[] adress_parse = tb_adressip.Text.Split((":").ToCharArray());
                 s_ip = adress_parse[0];
                 i_port = int.Parse(adress_parse[1]);
                 pseudo = tb_pseudo.Text;
-                if( pseudo != "")
+                if (pseudo != "")
                 {
                     WaitConnexion();
                 }
@@ -85,22 +120,6 @@ namespace darkmessenger
             {
                 MessageBox.Show("Adresse de connexion incorrecte !");
             }
-        }
-
-        private void tb_message_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if (e.KeyChar == 13)
-            {
-                // + seclection user connected
-                SendMessage(TrameClient.getMsgTrame(pseudo,tb_message.Text,"server"));
-                tb_message.Text = "";
-            }
-        }
-
-        private void main_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            SendMessage(TrameClient.getDisconnectionTrame(pseudo));
-            CloseTcpClient();
         }
 
         #endregion
@@ -130,6 +149,7 @@ namespace darkmessenger
             {
                 tcp_client = new TcpClient(s_ip, i_port);
                 this.Invoke(ConnexionDelegate, this);
+                WaitMessage();
             }
             catch (Exception ex)
             {
@@ -146,13 +166,20 @@ namespace darkmessenger
                 while (stm.Read(ba, 0, 1024) != 0)
                 {
                     //analyse de trame
-                    Trame _trame = new Trame(utf8.GetString(ba));
-                    if (_trame.isValidTrame && _trame.type == TrameType.ListOfClient)
+                    string _s_trame = utf8.GetString(ba);
+                    Trame _trame = new Trame(_s_trame);
+                    if (_trame.isValidTrame)
                     {
-                        this.Invoke(LoadListClientDelegate, _trame.listClients);
+                        if(_trame.type == TrameType.ListOfClient)
+                        {
+                            this.Invoke(LoadListClientDelegate, _trame.listClients);
+                        }
+                        else
+                            this.Invoke(WriteMessageDelegate, utf8.GetString(ba), Color.BlueViolet);
                     }
                     else
-                        this.Invoke(WriteMessageDelegate, utf8.GetString(ba), Color.Violet);
+                        this.Invoke(WriteMessageDelegate, _s_trame, Color.Red);
+                    
                 }
             }
             catch (IOException ex)
@@ -182,7 +209,7 @@ namespace darkmessenger
                 if (_trame.type == TrameType.Message)
                 {
                     if (_trame.from == pseudo) //l'envoi un message
-                        _mess = pseudo + " : " + _trame.msg;
+                        _mess = pseudo + " => "+_trame.to+" : " + _trame.msg;
                     else if (_trame.to == pseudo) //message pour moi
                         _mess = _trame.from + " : " + _trame.msg;
                     else
@@ -209,7 +236,6 @@ namespace darkmessenger
             _main.lb_client.Enabled = true;
             _main.AddMessage("Connexion avec succes", Color.Green);
             _main.SendMessage(TrameClient.getConnectionTrame(pseudo));
-            _main.WaitMessage();
         }
 
         public void EnabledDeconnexion(main _main)
@@ -219,11 +245,13 @@ namespace darkmessenger
             _main.tb_pseudo.Enabled = true;
             _main.tb_message.Enabled = false;
             _main.lb_client.Enabled = false;
+            _main.lb_client.Items.Clear();
             _main.AddMessage("Server arrêté", Color.Red);
         }
 
         public void LoadListClient(ArrayList _listclient)
         {
+            lb_client.Items.Clear();
             foreach(string _unclient in _listclient)
                 lb_client.Items.Add(_unclient);
         }
