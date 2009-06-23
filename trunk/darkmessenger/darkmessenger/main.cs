@@ -96,8 +96,14 @@ namespace darkmessenger
 
         private void main_FormClosing(object sender, FormClosingEventArgs e)
         {
-            SendMessage(TrameClient.getDisconnectionTrame(pseudo));
-            CloseTcpClient();
+            try
+            {
+                SendMessage(TrameClient.getDisconnectionTrame(pseudo));
+                CloseTcpClient();
+                t_waitMessage.Abort();
+                t_waitConnexion.Abort();
+            }
+            catch (Exception ex) { }
         }
 
         private void Connexion()
@@ -175,12 +181,13 @@ namespace darkmessenger
                             this.Invoke(LoadListClientDelegate, _trame.listClients);
                         }
                         else
-                            this.Invoke(WriteMessageDelegate, utf8.GetString(ba), Color.BlueViolet);
+                            this.Invoke(WriteMessageDelegate, _s_trame, Color.BlueViolet);
                     }
                     else
                         this.Invoke(WriteMessageDelegate, _s_trame, Color.Red);
                     
                 }
+                stm.Close();
             }
             catch (IOException ex)
             {
@@ -225,6 +232,9 @@ namespace darkmessenger
                 rtb_allmessage.AppendText(System.DateTime.Now.ToLongTimeString() + " : " + s_mess);
                 rtb_allmessage.AppendText("\n");
             }
+
+            rtb_allmessage.Select(rtb_allmessage.Text.Length, 0);
+            rtb_allmessage.ScrollToCaret();
         }
 
         public void EnabledConnexion(main _main)
@@ -277,6 +287,7 @@ namespace darkmessenger
         {
             if(tcp_client!=null)
             {
+                tcp_client.Client.Close();
                 tcp_client.Close();
                 tcp_client=null;
             }
