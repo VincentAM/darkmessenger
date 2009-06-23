@@ -11,9 +11,9 @@ namespace darkmessenger
     {
         private static UTF8Encoding utf8 = new UTF8Encoding();
 
-        public static string getListOfConnectedTrame(ArrayList _list)
+        public static string getListOfClientTrame(ArrayList _list)
         {
-            string str = "<trame><type>list_of_connected</type><from>server</from><clients>";
+            string str = "<trame><type>"+TrameType.ListOfClient+"</type><from>server</from><clients>";
 
             foreach (string s in _list)
             {
@@ -27,7 +27,7 @@ namespace darkmessenger
 
         public static string getMsgTestTrame(string _to)
         { 
-            return "<trame><type>msg</type><from>server</from><msg>test<msg><to>" + utf8.GetBytes(_to) + "<to></trame>";
+            return "<trame><type>"+TrameType.Message+"</type><from>server</from><msg>test</msg><to>" + utf8.GetBytes(_to) + "</to></trame>";
         }
     }
 }
