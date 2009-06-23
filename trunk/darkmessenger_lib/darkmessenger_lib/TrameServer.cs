@@ -20,7 +20,7 @@ namespace darkmessenger
                 str += "<client>"+s+"</client>";
             }
             
-            str+="<clients></trame>";
+            str+="</clients></trame>";
 
             return str;
         }
