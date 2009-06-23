@@ -11,11 +11,11 @@ namespace darkmessenger
     {
         public static string getListOfClientTrame(ArrayList _list)
         {
-            string str = "<trame><type>"+TrameType.ListOfClient+"</type><from>server</from><clients>";
+            string str = "<trame><type>"+TrameType.ListOfClient+"</type><from>"+TrameType.chToASCII("server")+"</from><clients>";
 
             foreach (string s in _list)
             {
-                str += "<client>"+s+"</client>";
+                str += "<client>"+TrameType.chToASCII(s)+"</client>";
             }
             
             str+="</clients></trame>";
@@ -23,19 +23,14 @@ namespace darkmessenger
             return str;
         }
 
-        public static string getMsgTestTrame(string _to)
-        { 
-            return "<trame><type>"+TrameType.Message+"</type><from>server</from><msg>test</msg><to>" + _to + "</to></trame>";
-        }
-
         public static string getWrongNameTrame()
         {
-            return "<trame><type>" + TrameType.WrongName + "</type><from>server</from></trame>";
+            return "<trame><type>" + TrameType.WrongName + "</type><from>"+TrameType.chToASCII("server")+"</from></trame>";
         }
 
         public static string getKickedTrame()
         {
-            return "<trame><type>" + TrameType.Kicked + "</type><from>server</from></trame>";
+            return "<trame><type>" + TrameType.Kicked + "</type><from>"+TrameType.chToASCII("server")+"</from></trame>";
         }
     }
 }
