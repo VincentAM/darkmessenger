@@ -281,11 +281,11 @@ namespace darkmessenger
             byte[] b;
             int k;
             string str = "";
-            Socket myClient = null;
+            Client myClient = null;
 
             try
             {
-                myClient = ((Client)listOfClient[listOfClient.Count - 1]).Socket;
+                myClient = (Client)listOfClient[listOfClient.Count - 1];
             }
             catch (SocketException ex)
             {
@@ -299,7 +299,7 @@ namespace darkmessenger
                     b = new byte[1024];
                     try
                     {
-                        k = myClient.Receive(b);
+                        k = myClient.Socket.Receive(b);
                     }
                     catch (ObjectDisposedException ex3)
                     { }
@@ -356,7 +356,8 @@ namespace darkmessenger
                 {
                     try
                     {
-                        myClient.Close();
+                        myClient.Socket.Close();
+                        disconnect_user(myClient.Name);
                         this.Invoke(WriteConsoleDelegate, "Utilisateur déconnecté.");
                         this.Invoke(RefreshListOfClient);
                     }
