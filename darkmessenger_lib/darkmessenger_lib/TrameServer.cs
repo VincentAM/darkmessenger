@@ -27,7 +27,7 @@ namespace darkmessenger
 
         public static string getMsgTestTrame(string _to)
         { 
-            return "<trame><type>"+TrameType.Message+"</type><from>server</from><msg>test</msg><to>" + utf8.GetBytes(_to) + "</to></trame>";
+            return "<trame><type>"+TrameType.Message+"</type><from>server</from><msg>test</msg><to>" + _to + "</to></trame>";
         }
     }
 }

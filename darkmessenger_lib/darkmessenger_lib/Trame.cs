@@ -37,10 +37,12 @@ namespace darkmessenger
                 this.from = racine.SelectSingleNode("from").FirstChild.Value.Trim();
                 this.type = racine.SelectSingleNode("type").FirstChild.Value.Trim();
 
+                Console.WriteLine(xdoc.InnerXml);
+
                 if (this.type == TrameType.Message)
                 {
                     this.to = racine.SelectSingleNode("to").FirstChild.Value.Trim();
-                    this.msg = racine.SelectSingleNode("msg").FirstChild.Value.Trim();
+                    this.msg = TrameClient.ASCIIToCh(racine.SelectSingleNode("msg").FirstChild.Value.Trim());
                 }
                 else if (this.type == TrameType.ListOfClient)
                 {
