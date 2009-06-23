@@ -209,14 +209,10 @@ namespace darkmessenger
             }
             catch (IOException ex)
             {
-                try
-                {
-                    CloseTcpClient();
+                if(CloseTcpClient()==1)
                     this.Invoke(DeconnexionDelegate, this);
-                }
-                catch (InvalidOperationException exx){
-                    CloseTcpClient();
-                }
+                else
+                    this.Invoke(WriteMessageDelegate, "Erreur dans la fermeture du socket", Color.Red);
             }
 
         }
@@ -305,7 +301,7 @@ namespace darkmessenger
 
         #endregion
 
-        public void CloseTcpClient()
+        public int CloseTcpClient()
         {
             try
             {
@@ -314,9 +310,11 @@ namespace darkmessenger
                     tcp_client.Client.Close();
                     tcp_client.Close();
                     tcp_client = null;
+                    return 1;
                 }
             }
-            catch (Exception ex) { MessageBox.Show("caca"); }
+            catch (Exception ex) { return 0; }
+            return 0;
         }
     }
 }
