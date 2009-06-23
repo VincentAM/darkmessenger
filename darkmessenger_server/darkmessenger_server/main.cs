@@ -215,7 +215,6 @@ namespace darkmessenger
                             b = new byte[1024];
                             k = s.Receive(b);
                             string temp = utf8.GetString(b);
-                            Console.WriteLine(temp);
                             Trame t = new Trame(temp);
                             if (t.isValidTrame)//Si la trame est valide
                             {
@@ -442,18 +441,6 @@ namespace darkmessenger
         private void main_FormClosing(object sender, FormClosingEventArgs e)
         {
             stop_listener();
-        }
-
-        private void bt_msg_test_Click(object sender, EventArgs e)
-        {
-            if (listOfClient != null)
-            {
-
-                foreach (Client c in listOfClient)
-                {
-                    send_msg(c, TrameServer.getMsgTestTrame(c.Name));
-                }
-            }
         }
 
         #endregion
