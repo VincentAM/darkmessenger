@@ -46,7 +46,7 @@ namespace darkmessenger
                 if (this.type == TrameType.Message)
                 {
                     this.to = racine.SelectSingleNode("to").FirstChild.Value.Trim();
-                    this.msg = TrameClient.ASCIIToCh(racine.SelectSingleNode("msg").FirstChild.Value.Trim());
+                    this.msg = TrameType.ASCIIToCh(racine.SelectSingleNode("msg").FirstChild.Value.Trim());
                 }
                 else if (this.type == TrameType.ListOfClient)
                 {
@@ -61,7 +61,6 @@ namespace darkmessenger
                 {
                     XmlNode i = racine.SelectSingleNode("qqzfrqsqsdf");
                 }
-                
             }
             catch (XmlException ex)
             {
