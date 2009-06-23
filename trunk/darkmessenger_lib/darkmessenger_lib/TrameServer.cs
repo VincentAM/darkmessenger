@@ -5,12 +5,10 @@ using System.Text;
 namespace darkmessenger
 {
     /// <summary>
-    /// Liste des trames pouvant être envoyées depuis le server
+    /// Liste des trames pouvant être envoyées à partir du server.
     /// </summary>
     public static class TrameServer
     {
-        private static UTF8Encoding utf8 = new UTF8Encoding();
-
         public static string getListOfClientTrame(ArrayList _list)
         {
             string str = "<trame><type>"+TrameType.ListOfClient+"</type><from>server</from><clients>";
@@ -28,6 +26,16 @@ namespace darkmessenger
         public static string getMsgTestTrame(string _to)
         { 
             return "<trame><type>"+TrameType.Message+"</type><from>server</from><msg>test</msg><to>" + _to + "</to></trame>";
+        }
+
+        public static string getWrongNameTrame()
+        {
+            return "<trame><type>" + TrameType.WrongName + "</type><from>server</from></trame>";
+        }
+
+        public static string getKickedTrame()
+        {
+            return "<trame><type>" + TrameType.Kicked + "</type><from>server</from></trame>";
         }
     }
 }
