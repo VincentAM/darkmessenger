@@ -23,3 +23,4 @@ J:\dev\c_sharp\darkmessenger_server\darkmessenger_server\obj\Debug\darkmessenger
 J:\dev\c_sharp\darkmessenger_server\darkmessenger_server\obj\Debug\darkmessenger.main.resources
 J:\dev\c_sharp\darkmessenger_server\darkmessenger_server\obj\Debug\darkmessenger.Properties.Resources.resources
 J:\dev\c_sharp\darkmessenger_server\darkmessenger_server\bin\Debug\darkmessenger_lib.dll
+J:\dev\c_sharp\darkmessenger_server\darkmessenger_server\bin\Debug\darkmessenger_lib.pdb

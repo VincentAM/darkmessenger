@@ -33,7 +33,7 @@
   <ItemGroup>
     <Reference Include="darkmessenger_lib, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>.\darkmessenger_lib.dll</HintPath>
+      <HintPath>..\..\darkmessenger_lib\darkmessenger_lib\bin\Debug\darkmessenger_lib.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core">
