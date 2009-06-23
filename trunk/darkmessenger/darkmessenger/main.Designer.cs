@@ -112,7 +112,7 @@
             this.tb_adressip.Name = "tb_adressip";
             this.tb_adressip.Size = new System.Drawing.Size(127, 20);
             this.tb_adressip.TabIndex = 3;
-            this.tb_adressip.Text = "192.168.0.3:9999";
+            this.tb_adressip.Text = "192.168.0.2:9999";
             this.tb_adressip.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.tb_adressip.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tb_adressip_KeyPress);
             // 
