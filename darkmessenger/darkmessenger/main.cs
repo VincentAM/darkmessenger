@@ -19,7 +19,7 @@ namespace darkmessenger
     delegate void WriteMessageDelegateHandler(string text,Color c_color);
     delegate void ConnexionDelegateHandler(main _main);
     delegate void DeconnexionDelegateHandler(main _main);
-    delegate void LoadListClientDelegateHandler(ListBox _lb);
+    delegate void LoadListClientDelegateHandler(ArrayList _listclient);
 
     #endregion
 
@@ -91,7 +91,8 @@ namespace darkmessenger
         {
             if (e.KeyChar == 13)
             {
-                SendMessage(tb_message.Text);
+                // + seclection user connected
+                SendMessage(TrameClient.getMsgTrame(pseudo,tb_message.Text,"server"));
                 tb_message.Text = "";
             }
         }
@@ -145,13 +146,13 @@ namespace darkmessenger
                 while (stm.Read(ba, 0, 1024) != 0)
                 {
                     //analyse de trame
-
-                    this.Invoke(WriteMessageDelegate, "L'autre : " + utf8.GetString(ba), Color.Violet);
-
-                    //modification de la liste de client
-                    ListBox new_lb = new ListBox();
-                    new_lb.Items.Add("L'autre");
-                    this.Invoke(LoadListClientDelegate, new_lb);
+                    Trame _trame = new Trame(utf8.GetString(ba));
+                    if (_trame.isValidTrame && _trame.type == TrameType.ListOfClient)
+                    {
+                        this.Invoke(LoadListClientDelegate, _trame.listClients);
+                    }
+                    else
+                        this.Invoke(WriteMessageDelegate, utf8.GetString(ba), Color.Violet);
                 }
             }
             catch (IOException ex)
@@ -174,9 +175,29 @@ namespace darkmessenger
 
         public void AddMessage(string s_mess, Color c_color)
         {
-            rtb_allmessage.SelectionColor = c_color;
-            rtb_allmessage.AppendText(System.DateTime.Now.ToLongTimeString() + " : " + s_mess);
-            rtb_allmessage.AppendText("\n");
+            Trame _trame = new Trame(s_mess);
+            if (_trame.isValidTrame)
+            {
+                string _mess="";
+                if (_trame.type == TrameType.Message)
+                {
+                    if (_trame.from == pseudo) //l'envoi un message
+                        _mess = pseudo + " : " + _trame.msg;
+                    else if (_trame.to == pseudo) //message pour moi
+                        _mess = _trame.from + " : " + _trame.msg;
+                    else
+                        _mess = "Message perdu " + _trame.data;
+                    rtb_allmessage.SelectionColor = c_color;
+                    rtb_allmessage.AppendText(System.DateTime.Now.ToLongTimeString() + " : " + _mess);
+                    rtb_allmessage.AppendText("\n");
+                }
+            }
+            else
+            {
+                rtb_allmessage.SelectionColor = c_color;
+                rtb_allmessage.AppendText(System.DateTime.Now.ToLongTimeString() + " : " + s_mess);
+                rtb_allmessage.AppendText("\n");
+            }
         }
 
         public void EnabledConnexion(main _main)
@@ -185,6 +206,7 @@ namespace darkmessenger
             _main.tb_adressip.Enabled = false;
             _main.tb_pseudo.Enabled = false;
             _main.tb_message.Enabled = true;
+            _main.lb_client.Enabled = true;
             _main.AddMessage("Connexion avec succes", Color.Green);
             _main.SendMessage(TrameClient.getConnectionTrame(pseudo));
             _main.WaitMessage();
@@ -196,12 +218,14 @@ namespace darkmessenger
             _main.tb_adressip.Enabled = true;
             _main.tb_pseudo.Enabled = true;
             _main.tb_message.Enabled = false;
+            _main.lb_client.Enabled = false;
             _main.AddMessage("Server arrêté", Color.Red);
         }
 
-        public void LoadListClient(ListBox _lb)
+        public void LoadListClient(ArrayList _listclient)
         {
-            lb_client = _lb;
+            foreach(string _unclient in _listclient)
+                lb_client.Items.Add(_unclient);
         }
 
         #endregion
@@ -215,7 +239,7 @@ namespace darkmessenger
                 Stream stm = tcp_client.GetStream();
                 byte[] ba = utf8.GetBytes(_mess);
                 stm.Write(ba, 0, ba.Length);
-                AddMessage(pseudo + " : " + _mess, Color.Blue);
+                AddMessage(_mess, Color.Blue);
             }
         }
 
