@@ -27,6 +27,7 @@ namespace darkmessenger
 
         Thread waitForNewConnection;
         Thread waitMessageFromClient;
+        Thread sendMessage;
 
         #endregion
 
@@ -40,6 +41,7 @@ namespace darkmessenger
 
         TcpListener serverListener;
         ArrayList listOfClient;
+        ArrayList toSend;
         UTF8Encoding utf8 = new UTF8Encoding();
 
         #endregion
@@ -50,6 +52,7 @@ namespace darkmessenger
             this.WriteConsoleDelegate = new WriteConsoleDelegateHandler(write_on_console);
             this.ChangeStateServer = new ChangeStateServerHandler(change_state_server);
             this.RefreshListOfConnected = new RefreshListOfConnectedHandler(refresh_list_of_connected);
+            toSend = new ArrayList();
         }
 
         #region other methods
@@ -70,11 +73,10 @@ namespace darkmessenger
 
         private void send_msg(Client _c, string _s)
         {
-            byte[] b;
-            b = utf8.GetBytes(_s);
-            Console.WriteLine("Transmission ...");
-            _c.Socket.BeginSend(b, 0, b.Length, SocketFlags.None, null, null);
-            Console.WriteLine("Transmission terminée.");
+            toSend.Add(_c);
+            toSend.Add(_s);
+            sendMessage = new Thread(new ThreadStart(runSendMessage));
+            sendMessage.Start();
         }
 
         private void disconnect_user(string _name)
@@ -314,6 +316,20 @@ namespace darkmessenger
                     break;
                 }
             }
+        }
+
+        private void runSendMessage()
+        {
+            Client c = ((Client)toSend[0]);
+            string s = toSend[1].ToString();
+            toSend.RemoveAt(0);
+            toSend.RemoveAt(0);
+
+            byte[] b;
+            b = utf8.GetBytes(s);
+            Console.WriteLine("Transmission ...");
+            c.Socket.BeginSend(b, 0, b.Length, SocketFlags.None, null, null);
+            Console.WriteLine("Transmission terminée.");
         }
 
         #endregion
