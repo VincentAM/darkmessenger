@@ -54,7 +54,7 @@ namespace darkmessenger
 
         #region other methods
 
-        private void send_list_of_connected()
+        private void send_list_of_client()
         {
             ArrayList listOfNames = new ArrayList();
             foreach (Client c in listOfClient)
@@ -135,6 +135,19 @@ namespace darkmessenger
             }
         }
 
+        private int getIndexClientInList(string _name)
+        {
+            int i = -1;
+            for (int j=0;j<listOfClient.Count;j++)
+            {
+                if (((Client)listOfClient[j]).Name == _name)
+                {
+                    i = j;
+                }
+            }
+            return i;
+        }
+
         #endregion
 
         #region thread methods
@@ -178,7 +191,7 @@ namespace darkmessenger
                                 listOfClient.Add(c);
 
                                 this.Invoke(RefreshListOfConnected);
-                                send_list_of_connected();
+                                send_list_of_client();
                                 waitMessageFromClient = new Thread(new ThreadStart(runWaitForMessage));
                                 waitMessageFromClient.Start();
                             }
@@ -242,7 +255,7 @@ namespace darkmessenger
                         }
                         catch (ObjectDisposedException ex3)
                         { }
-                        Console.WriteLine(utf8.GetString(b));
+
                         Trame t = new Trame(utf8.GetString(b));
                         if (t.isValidTrame)//Si la trame est valide
                         {
@@ -253,10 +266,28 @@ namespace darkmessenger
                                 disconnect_user(t.from);
                                 this.Invoke(RefreshListOfConnected);
                                 this.Invoke(WriteConsoleDelegate, "Déconnexion de " + t.from + " ok.");
+                                send_list_of_client();
                             }
                             else if (t.type == TrameType.Message)
                             {
                                 this.Invoke(WriteConsoleDelegate, "Message reçu ["+t.from+"] pour ["+t.to+"]: " + t.msg);
+                                if (t.to != "server")
+                                {
+                                    int index = getIndexClientInList(t.to);
+                                    if (index != -1)
+                                    {
+                                        send_msg(((Client)listOfClient[index]), t.data);
+                                        this.Invoke(WriteConsoleDelegate, "Redirection du message à [" + t.to + "]");
+                                    }
+                                    else
+                                    {
+                                        this.Invoke(WriteConsoleDelegate, "Client [" + t.to + "] inconnu");
+                                    }
+                                }
+                                else
+                                {
+                                    this.Invoke(WriteConsoleDelegate, "Message pour le server de ["+t.from+"] : "+t.msg);
+                                }
                             }
                             else
                             {
