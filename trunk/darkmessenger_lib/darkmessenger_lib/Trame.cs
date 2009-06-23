@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Text;
 using System.Xml;
+using System.Text.RegularExpressions;
 
 namespace darkmessenger
 {
@@ -29,6 +30,9 @@ namespace darkmessenger
 
         private void load()
         {
+            data = data.Split(new string[]{"</trame>"}, StringSplitOptions.None)[0];
+            data += "</trame>";
+
             try
             {
                 XmlDocument xdoc = new XmlDocument();
