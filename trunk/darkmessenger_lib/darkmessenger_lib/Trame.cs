@@ -38,14 +38,12 @@ namespace darkmessenger
                 XmlDocument xdoc = new XmlDocument();
                 xdoc.LoadXml(this.data);
                 XmlNode racine = xdoc.GetElementsByTagName("trame")[0];
-                this.from = racine.SelectSingleNode("from").FirstChild.Value.Trim();
+                this.from = TrameType.ASCIIToCh(racine.SelectSingleNode("from").FirstChild.Value.Trim());
                 this.type = racine.SelectSingleNode("type").FirstChild.Value.Trim();
-
-                Console.WriteLine(xdoc.InnerXml);
 
                 if (this.type == TrameType.Message)
                 {
-                    this.to = racine.SelectSingleNode("to").FirstChild.Value.Trim();
+                    this.to = TrameType.ASCIIToCh(racine.SelectSingleNode("to").FirstChild.Value.Trim());
                     this.msg = TrameType.ASCIIToCh(racine.SelectSingleNode("msg").FirstChild.Value.Trim());
                 }
                 else if (this.type == TrameType.ListOfClient)
@@ -54,8 +52,12 @@ namespace darkmessenger
 
                     for (int i = 0; i < racine.SelectSingleNode("clients").SelectNodes("client").Count; i++)
                     {
-                        listClients.Add(((XmlNode)racine.SelectSingleNode("clients").SelectNodes("client")[i]).FirstChild.Value.Trim());
+                        listClients.Add(TrameType.ASCIIToCh(((XmlNode)racine.SelectSingleNode("clients").SelectNodes("client")[i]).FirstChild.Value.Trim()));
                     }
+                }
+                else if (this.type == TrameType.MessageToAll)
+                {
+                    this.msg = TrameType.ASCIIToCh(racine.SelectSingleNode("msg").FirstChild.Value.Trim());
                 }
                 else
                 {
