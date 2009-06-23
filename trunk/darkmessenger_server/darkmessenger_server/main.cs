@@ -15,7 +15,7 @@ namespace darkmessenger
 
     delegate void WriteConsoleDelegateHandler(string text);
     delegate void ChangeStateServerHandler(bool isWaiting);
-    delegate void RefreshListOfConnectedHandler();
+    delegate void RefreshListOfClientHandler();
 
     #endregion
 
@@ -35,7 +35,7 @@ namespace darkmessenger
 
         private WriteConsoleDelegateHandler WriteConsoleDelegate;
         private ChangeStateServerHandler ChangeStateServer;
-        private RefreshListOfConnectedHandler RefreshListOfConnected;
+        private RefreshListOfClientHandler RefreshListOfClient;
 
         #endregion
 
@@ -51,7 +51,7 @@ namespace darkmessenger
             InitializeComponent();
             this.WriteConsoleDelegate = new WriteConsoleDelegateHandler(write_on_console);
             this.ChangeStateServer = new ChangeStateServerHandler(change_state_server);
-            this.RefreshListOfConnected = new RefreshListOfConnectedHandler(refresh_list_of_connected);
+            this.RefreshListOfClient = new RefreshListOfClientHandler(refresh_list_of_client);
             toSend = new ArrayList();
         }
 
@@ -116,6 +116,7 @@ namespace darkmessenger
             }
 
             listOfClient.Clear();
+            this.Invoke(RefreshListOfClient);
         }
 
         private void stop_listener()
@@ -150,6 +151,22 @@ namespace darkmessenger
             return i;
         }
 
+        private bool isClientNameExist(string _name)
+        {
+            bool exist = false;
+
+            foreach (Client c in listOfClient)
+            {
+                if (c.Name.ToLower() == _name.ToLower())
+                {
+                    exist = true;
+                    break;
+                }
+            }
+
+            return exist;
+        }
+
         #endregion
 
         #region thread methods
@@ -173,40 +190,56 @@ namespace darkmessenger
                 {
                     try
                     {
-                        //Connexion avec l'utilisateur - Le code est bloqué sur cette ligne tant qu'il n'y a pas de demande de connexion
-                        Socket s = serverListener.AcceptSocket();
-                        this.Invoke(WriteConsoleDelegate, "Tentative de connexion.");
-
-                        // Reception du premier message, qui doit être une demande de connexion
-                        byte[] b;
-                        int k;
-                        b = new byte[1024];
-                        k = s.Receive(b);
-                        Trame t = new Trame(utf8.GetString(b));
-                        if (t.isValidTrame)//Si la trame est valide
+                        bool isconnecting = true;
+                        while (isconnecting)
                         {
-                            if (t.type == TrameType.Connection)//Si c'est une demande de connexion
+                            //Connexion avec l'utilisateur - Le code est bloqué sur cette ligne tant qu'il n'y a pas de demande de connexion
+                            Socket s = serverListener.AcceptSocket();
+                            this.Invoke(WriteConsoleDelegate, "Tentative de connexion.");
+
+                            // Reception du premier message, qui doit être une demande de connexion
+                            byte[] b;
+                            int k;
+                            b = new byte[1024];
+                            k = s.Receive(b);
+                            Trame t = new Trame(utf8.GetString(b));
+                            if (t.isValidTrame)//Si la trame est valide
                             {
-                                this.Invoke(WriteConsoleDelegate, "Connexion accpectée pour : " + t.from);
+                                if (t.type == TrameType.Connection)//Si c'est une demande de connexion
+                                {
+                                    Client c = new Client(t.from, s);
 
-                                Client c = new Client(t.from, s);
-                                listOfClient.Add(c);
+                                    if (!isClientNameExist(t.from))
+                                    {
 
-                                this.Invoke(RefreshListOfConnected);
-                                send_list_of_client();
-                                waitMessageFromClient = new Thread(new ThreadStart(runWaitForMessage));
-                                waitMessageFromClient.Start();
+                                        this.Invoke(WriteConsoleDelegate, "Connexion accpectée pour : " + t.from);
+
+                                        
+                                        listOfClient.Add(c);
+
+                                        this.Invoke(RefreshListOfClient);
+                                        send_list_of_client();
+                                        waitMessageFromClient = new Thread(new ThreadStart(runWaitForMessage));
+                                        waitMessageFromClient.Start();
+                                        isconnecting = false;
+                                    }
+                                    else
+                                    {
+                                        this.Invoke(WriteConsoleDelegate, "Connexion refusée pour [" + t.from + "] : nom déjà connecté");
+                                        send_msg(c, TrameServer.getWrongNameTrame());
+                                    }
+                                }
+                                else
+                                {
+                                    s.Close();
+                                    //serverListener.Stop();
+                                }
                             }
                             else
                             {
                                 s.Close();
                                 serverListener.Stop();
                             }
-                        }
-                        else
-                        { 
-                            s.Close();
-                            serverListener.Stop();
                         }
                     }
                     catch (SocketException ex)
@@ -250,56 +283,56 @@ namespace darkmessenger
             {
                 try
                 {
-                        b = new byte[1024];
-                        try
+                    b = new byte[1024];
+                    try
+                    {
+                        k = myClient.Receive(b);
+                    }
+                    catch (ObjectDisposedException ex3)
+                    { }
+
+                    Trame t = new Trame(utf8.GetString(b));
+                    if (t.isValidTrame)//Si la trame est valide
+                    {
+                        if (t.type == TrameType.Disconnection)//Si c'est une demande de connexion
                         {
-                            k = myClient.Receive(b);
+                            this.Invoke(WriteConsoleDelegate, "Déconnexion demandée par : " + t.from);
+
+                            disconnect_user(t.from);
+                            this.Invoke(RefreshListOfClient);
+                            this.Invoke(WriteConsoleDelegate, "Déconnexion de " + t.from + " ok.");
+                            send_list_of_client();
                         }
-                        catch (ObjectDisposedException ex3)
-                        { }
-
-                        Trame t = new Trame(utf8.GetString(b));
-                        if (t.isValidTrame)//Si la trame est valide
+                        else if (t.type == TrameType.Message)
                         {
-                            if (t.type == TrameType.Disconnection)//Si c'est une demande de connexion
+                            this.Invoke(WriteConsoleDelegate, "Message reçu ["+t.from+"] pour ["+t.to+"]: " + t.msg);
+                            if (t.to != "server")
                             {
-                                this.Invoke(WriteConsoleDelegate, "Déconnexion demandée par : " + t.from);
-
-                                disconnect_user(t.from);
-                                this.Invoke(RefreshListOfConnected);
-                                this.Invoke(WriteConsoleDelegate, "Déconnexion de " + t.from + " ok.");
-                                send_list_of_client();
-                            }
-                            else if (t.type == TrameType.Message)
-                            {
-                                this.Invoke(WriteConsoleDelegate, "Message reçu ["+t.from+"] pour ["+t.to+"]: " + t.msg);
-                                if (t.to != "server")
+                                int index = getIndexClientInList(t.to);
+                                if (index != -1)
                                 {
-                                    int index = getIndexClientInList(t.to);
-                                    if (index != -1)
-                                    {
-                                        send_msg(((Client)listOfClient[index]), t.data);
-                                        this.Invoke(WriteConsoleDelegate, "Redirection du message à [" + t.to + "]");
-                                    }
-                                    else
-                                    {
-                                        this.Invoke(WriteConsoleDelegate, "Client [" + t.to + "] inconnu");
-                                    }
+                                    send_msg(((Client)listOfClient[index]), t.data);
+                                    this.Invoke(WriteConsoleDelegate, "Redirection du message à [" + t.to + "]");
                                 }
                                 else
                                 {
-                                    this.Invoke(WriteConsoleDelegate, "Message pour le server de ["+t.from+"] : "+t.msg);
+                                    this.Invoke(WriteConsoleDelegate, "Client [" + t.to + "] inconnu");
                                 }
                             }
                             else
                             {
-                                this.Invoke(WriteConsoleDelegate, "string reçue : " + utf8.GetString(b));
+                                this.Invoke(WriteConsoleDelegate, "Message pour le server de ["+t.from+"] : "+t.msg);
                             }
                         }
                         else
                         {
-                            break;
+                            this.Invoke(WriteConsoleDelegate, "string reçue : " + utf8.GetString(b));
                         }
+                    }
+                    else
+                    {
+                        break;
+                    }
                 }
                 catch (SocketException ex)
                 {
@@ -339,7 +372,7 @@ namespace darkmessenger
         private void write_on_console(string _s)
         {
             DateTime.Today.ToString();
-            rtb_console.AppendText("[" + DateTime.Now.Hour + ":" + DateTime.Now.Minute + ":" + DateTime.Now.Second + "] " + _s);
+            rtb_console.AppendText("[" + DateTime.Now.ToLongTimeString()+ "] " + _s);
             rtb_console.AppendText("\n");
             rtb_console.Select(rtb_console.Text.Length, 0);
             rtb_console.ScrollToCaret();
@@ -357,7 +390,7 @@ namespace darkmessenger
             }
         }
 
-        private void refresh_list_of_connected()
+        private void refresh_list_of_client()
         {
             lb_clients.Items.Clear();
 
@@ -366,7 +399,6 @@ namespace darkmessenger
                 lb_clients.Items.Add(c.Name);
             }
         }
-
 
         #endregion
 
@@ -394,9 +426,13 @@ namespace darkmessenger
 
         private void bt_msg_test_Click(object sender, EventArgs e)
         {
-            foreach (Client c in listOfClient)
+            if (listOfClient != null)
             {
-                send_msg(c, "test");
+
+                foreach (Client c in listOfClient)
+                {
+                    send_msg(c, TrameServer.getMsgTestTrame(c.Name));
+                }
             }
         }
 
