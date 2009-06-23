@@ -64,7 +64,7 @@ namespace darkmessenger
 
             foreach (Client c in listOfClient)
             {
-                send_msg(c, TrameServer.getListOfConnectedTrame(listOfNames));
+                send_msg(c, TrameServer.getListOfClientTrame(listOfNames));
             }          
         }
 
@@ -170,7 +170,7 @@ namespace darkmessenger
                         Trame t = new Trame(utf8.GetString(b));
                         if (t.isValidTrame)//Si la trame est valide
                         {
-                            if (t.type == "connection")//Si c'est une demande de connexion
+                            if (t.type == TrameType.Connection)//Si c'est une demande de connexion
                             {
                                 this.Invoke(WriteConsoleDelegate, "Connexion accpectée pour : " + t.from);
 
@@ -235,17 +235,18 @@ namespace darkmessenger
             {
                 try
                 {
-                        b = new byte[100];
+                        b = new byte[1024];
                         try
                         {
                             k = myClient.Receive(b);
                         }
                         catch (ObjectDisposedException ex3)
                         { }
+                        Console.WriteLine(utf8.GetString(b));
                         Trame t = new Trame(utf8.GetString(b));
                         if (t.isValidTrame)//Si la trame est valide
                         {
-                            if (t.type == "disconnection")//Si c'est une demande de connexion
+                            if (t.type == TrameType.Disconnection)//Si c'est une demande de connexion
                             {
                                 this.Invoke(WriteConsoleDelegate, "Déconnexion demandée par : " + t.from);
 
@@ -253,9 +254,13 @@ namespace darkmessenger
                                 this.Invoke(RefreshListOfConnected);
                                 this.Invoke(WriteConsoleDelegate, "Déconnexion de " + t.from + " ok.");
                             }
+                            else if (t.type == TrameType.Message)
+                            {
+                                this.Invoke(WriteConsoleDelegate, "Message reçu ["+t.from+"] pour ["+t.to+"]: " + t.msg);
+                            }
                             else
                             {
-                                this.Invoke(WriteConsoleDelegate, "Message reçu : " + utf8.GetString(b));
+                                this.Invoke(WriteConsoleDelegate, "string reçue : " + utf8.GetString(b));
                             }
                         }
                         else
