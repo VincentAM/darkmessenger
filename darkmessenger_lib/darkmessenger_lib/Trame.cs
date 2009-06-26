@@ -20,6 +20,7 @@ namespace darkmessenger
         public string ipask;
         public string ipwait;
         public string portwait;
+        public string answerfromwait;
 
         public bool isValidTrame;
 
@@ -73,6 +74,7 @@ namespace darkmessenger
                     this.to = TrameType.ASCIIToCh(racine.SelectSingleNode("to").FirstChild.Value.Trim());
                     this.ipwait = TrameType.ASCIIToCh(racine.SelectSingleNode("ipwait").FirstChild.Value.Trim());
                     this.portwait = TrameType.ASCIIToCh(racine.SelectSingleNode("portwait").FirstChild.Value.Trim());
+                    this.answerfromwait = TrameType.ASCIIToCh(racine.SelectSingleNode("answer").FirstChild.Value.Trim());
                 }
                 else
                 {
