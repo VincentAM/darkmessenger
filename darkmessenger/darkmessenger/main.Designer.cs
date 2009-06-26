@@ -40,9 +40,17 @@
             this.rtb_allmessage = new System.Windows.Forms.RichTextBox();
             this.lb_client = new System.Windows.Forms.ListBox();
             this.panel3 = new System.Windows.Forms.Panel();
+            this.panel4 = new System.Windows.Forms.Panel();
+            this.pb_fichier = new System.Windows.Forms.ProgressBar();
+            this.bt_send_fichier = new System.Windows.Forms.Button();
+            this.tb_fichier = new System.Windows.Forms.TextBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
+            this.button1 = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel3.SuspendLayout();
+            this.panel4.SuspendLayout();
             this.SuspendLayout();
             // 
             // tb_message
@@ -167,11 +175,74 @@
             this.panel3.Size = new System.Drawing.Size(137, 237);
             this.panel3.TabIndex = 7;
             // 
+            // panel4
+            // 
+            this.panel4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel4.Controls.Add(this.button1);
+            this.panel4.Controls.Add(this.pb_fichier);
+            this.panel4.Controls.Add(this.bt_send_fichier);
+            this.panel4.Controls.Add(this.tb_fichier);
+            this.panel4.Controls.Add(this.label4);
+            this.panel4.Location = new System.Drawing.Point(7, 289);
+            this.panel4.Name = "panel4";
+            this.panel4.Size = new System.Drawing.Size(520, 66);
+            this.panel4.TabIndex = 8;
+            // 
+            // pb_fichier
+            // 
+            this.pb_fichier.Enabled = false;
+            this.pb_fichier.Location = new System.Drawing.Point(7, 33);
+            this.pb_fichier.Name = "pb_fichier";
+            this.pb_fichier.Size = new System.Drawing.Size(397, 23);
+            this.pb_fichier.TabIndex = 3;
+            // 
+            // bt_send_fichier
+            // 
+            this.bt_send_fichier.Enabled = false;
+            this.bt_send_fichier.Location = new System.Drawing.Point(410, 5);
+            this.bt_send_fichier.Name = "bt_send_fichier";
+            this.bt_send_fichier.Size = new System.Drawing.Size(103, 23);
+            this.bt_send_fichier.TabIndex = 2;
+            this.bt_send_fichier.Text = "Envoi";
+            this.bt_send_fichier.UseVisualStyleBackColor = true;
+            this.bt_send_fichier.Click += new System.EventHandler(this.bt_send_fichier_Click);
+            // 
+            // tb_fichier
+            // 
+            this.tb_fichier.Enabled = false;
+            this.tb_fichier.Location = new System.Drawing.Point(70, 7);
+            this.tb_fichier.Name = "tb_fichier";
+            this.tb_fichier.ReadOnly = true;
+            this.tb_fichier.Size = new System.Drawing.Size(334, 20);
+            this.tb_fichier.TabIndex = 1;
+            this.tb_fichier.MouseClick += new System.Windows.Forms.MouseEventHandler(this.tb_fichier_MouseClick);
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.Location = new System.Drawing.Point(4, 8);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(63, 15);
+            this.label4.TabIndex = 0;
+            this.label4.Text = "Fichier : ";
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(438, 33);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 4;
+            this.button1.Text = "button1";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(537, 288);
+            this.ClientSize = new System.Drawing.Size(537, 366);
+            this.Controls.Add(this.panel4);
             this.Controls.Add(this.panel3);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
@@ -183,6 +254,8 @@
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
             this.panel3.ResumeLayout(false);
+            this.panel4.ResumeLayout(false);
+            this.panel4.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -201,6 +274,13 @@
         private System.Windows.Forms.TextBox tb_pseudo;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox tb_adressip;
+        private System.Windows.Forms.Panel panel4;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.ProgressBar pb_fichier;
+        private System.Windows.Forms.Button bt_send_fichier;
+        private System.Windows.Forms.TextBox tb_fichier;
+        private System.Windows.Forms.OpenFileDialog openFileDialog;
+        private System.Windows.Forms.Button button1;
     }
 }
 
