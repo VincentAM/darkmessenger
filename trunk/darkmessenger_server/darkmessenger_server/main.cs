@@ -316,7 +316,7 @@ namespace darkmessenger
                             this.Invoke(WriteConsoleDelegate, "Déconnexion de " + t.from + " ok.");
                             send_list_of_client();
                         }
-                        else if (t.type == TrameType.Message)
+                        else if (t.type == TrameType.Message)// Si c'est un message
                         {
                             this.Invoke(WriteConsoleDelegate, "Message reçu ["+t.from+"] pour ["+t.to+"] : " + t.msg);
                             if (t.to != "server")
@@ -337,10 +337,36 @@ namespace darkmessenger
                                 this.Invoke(WriteConsoleDelegate, "Message pour le server de ["+t.from+"] : "+t.msg);
                             }
                         }
-                        else if (t.type == TrameType.MessageToAll)
+                        else if (t.type == TrameType.MessageToAll)// Si c'est un message à tout le monde
                         {
                             this.Invoke(WriteConsoleDelegate, "Message reçu [" + t.from + "] pour tout le monde : " + t.msg);
                             send_msg_to_all(t.from, t.msg);
+                        }
+                        else if (t.type == TrameType.AskForFile)// Si c'est une demande de transfert de fichier
+                        {
+                            int index = getIndexClientInList(t.to);
+                            if (index != -1)
+                            {
+                                this.Invoke(WriteConsoleDelegate, "Demande d'envoi de fichier de [" + t.from + "] à [" + t.to + "] ");
+                                send_msg(((Client)listOfClient[index]), t.data);
+                            }
+                            else
+                            {
+                                this.Invoke(WriteConsoleDelegate, "Client [" + t.to + "] inconnu");
+                            }
+                        }
+                        else if (t.type == TrameType.AskForFile)// Si c'est une attente de trnsfert de fichier
+                        {
+                            int index = getIndexClientInList(t.to);
+                            if (index != -1)
+                            {
+                                this.Invoke(WriteConsoleDelegate, "Attente d'envoi de fichier de [" + t.from + "] à [" + t.to + "] ");
+                                send_msg(((Client)listOfClient[index]), t.data);
+                            }
+                            else
+                            {
+                                this.Invoke(WriteConsoleDelegate, "Client [" + t.to + "] inconnu");
+                            }
                         }
                         else
                         {
