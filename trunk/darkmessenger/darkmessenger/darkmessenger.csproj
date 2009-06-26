@@ -52,6 +52,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="EnvoiFichier.cs" />
     <Compile Include="main.cs">
       <SubType>Form</SubType>
     </Compile>
