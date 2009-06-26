@@ -15,6 +15,7 @@ namespace darkmessenger
         public static string Kicked = "kicked";
         public static string AskForFile = "askforfile";
         public static string WaitForFile = "waitforfile";
+        public static string FileTransmitHeader = "FileTransmitHeader";
 
         public static string chToASCII(string _s)
         {

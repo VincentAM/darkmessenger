@@ -22,6 +22,10 @@ namespace darkmessenger
         public string portwait;
         public string answerfromwait;
 
+        public string blocksize;
+        public string lastblocksize;
+        public string blockcount;
+
         public bool isValidTrame;
 
         public ArrayList listClients;
@@ -75,6 +79,13 @@ namespace darkmessenger
                     this.ipwait = TrameType.ASCIIToCh(racine.SelectSingleNode("ipwait").FirstChild.Value.Trim());
                     this.portwait = TrameType.ASCIIToCh(racine.SelectSingleNode("portwait").FirstChild.Value.Trim());
                     this.answerfromwait = TrameType.ASCIIToCh(racine.SelectSingleNode("answer").FirstChild.Value.Trim());
+                }
+                else if (this.type == TrameType.FileTransmitHeader)
+                {
+                    this.to = TrameType.ASCIIToCh(racine.SelectSingleNode("to").FirstChild.Value.Trim());
+                    this.blocksize = TrameType.ASCIIToCh(racine.SelectSingleNode("blocksize").FirstChild.Value.Trim());
+                    this.lastblocksize = TrameType.ASCIIToCh(racine.SelectSingleNode("lastblocksize").FirstChild.Value.Trim());
+                    this.blockcount = TrameType.ASCIIToCh(racine.SelectSingleNode("blockcount").FirstChild.Value.Trim());
                 }
                 else
                 {
