@@ -39,5 +39,10 @@ namespace darkmessenger
         {
             return "<trame><type>" + TrameType.WaitForFile + "</type><from>" + TrameType.chToASCII(_from) + "</from><to>" + TrameType.chToASCII(_to) + "</to><ipwait>" + TrameType.chToASCII(_ipwait) + "</ipwait><portwait>" + TrameType.chToASCII(_portwait) + "</portwait><answer>" + TrameType.chToASCII(_answer) + "</answer></trame>";
         }
+
+        public static string getSendFileTrame(string _from, string _to, string _blocksize, string _lastblocksize, string _blockcount)
+        {
+            return "<trame><type>" + TrameType.FileTransmitHeader + "</type><from>" + TrameType.chToASCII(_from) + "</from><to>" + TrameType.chToASCII(_to) + "</to><blocksize>" + TrameType.chToASCII(_blocksize) + "</blocksize><lastblocksize>" + TrameType.chToASCII(_lastblocksize) + "</lastblocksize><blockcount>" + TrameType.chToASCII(_blockcount) + "</blockcount></trame>";
+        }
     }
 }
