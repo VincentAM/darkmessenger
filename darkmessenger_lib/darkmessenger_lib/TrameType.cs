@@ -13,6 +13,8 @@ namespace darkmessenger
         public static string ListOfClient = "listofclient";
         public static string WrongName = "wrongname";
         public static string Kicked = "kicked";
+        public static string AskForFile = "askforfile";
+        public static string WaitForFile = "waitforfile";
 
         public static string chToASCII(string _s)
         {

@@ -17,6 +17,10 @@ namespace darkmessenger
         public string msg;
         public string value;
 
+        public string ipask;
+        public string ipwait;
+        public string portwait;
+
         public bool isValidTrame;
 
         public ArrayList listClients;
@@ -58,6 +62,17 @@ namespace darkmessenger
                 else if (this.type == TrameType.MessageToAll)
                 {
                     this.msg = TrameType.ASCIIToCh(racine.SelectSingleNode("msg").FirstChild.Value.Trim());
+                }
+                else if (this.type == TrameType.AskForFile)
+                {
+                    this.to = TrameType.ASCIIToCh(racine.SelectSingleNode("to").FirstChild.Value.Trim());
+                    this.ipask = TrameType.ASCIIToCh(racine.SelectSingleNode("ipask").FirstChild.Value.Trim());
+                }
+                else if (this.type == TrameType.WaitForFile)
+                {
+                    this.to = TrameType.ASCIIToCh(racine.SelectSingleNode("to").FirstChild.Value.Trim());
+                    this.ipwait = TrameType.ASCIIToCh(racine.SelectSingleNode("ipwait").FirstChild.Value.Trim());
+                    this.portwait = TrameType.ASCIIToCh(racine.SelectSingleNode("portwait").FirstChild.Value.Trim());
                 }
                 else
                 {
