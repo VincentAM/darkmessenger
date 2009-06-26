@@ -355,7 +355,7 @@ namespace darkmessenger
                                 this.Invoke(WriteConsoleDelegate, "Client [" + t.to + "] inconnu");
                             }
                         }
-                        else if (t.type == TrameType.AskForFile)// Si c'est une attente de trnsfert de fichier
+                        else if (t.type == TrameType.WaitForFile)// Si c'est une attente de trnsfert de fichier
                         {
                             int index = getIndexClientInList(t.to);
                             if (index != -1)
