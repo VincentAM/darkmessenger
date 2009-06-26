@@ -25,6 +25,7 @@ namespace darkmessenger
         public string blocksize;
         public string lastblocksize;
         public string blockcount;
+        public string filename;
 
         public bool isValidTrame;
 
@@ -86,6 +87,7 @@ namespace darkmessenger
                     this.blocksize = TrameType.ASCIIToCh(racine.SelectSingleNode("blocksize").FirstChild.Value.Trim());
                     this.lastblocksize = TrameType.ASCIIToCh(racine.SelectSingleNode("lastblocksize").FirstChild.Value.Trim());
                     this.blockcount = TrameType.ASCIIToCh(racine.SelectSingleNode("blockcount").FirstChild.Value.Trim());
+                    this.filename = TrameType.ASCIIToCh(racine.SelectSingleNode("filename").FirstChild.Value.Trim());
                 }
                 else
                 {
